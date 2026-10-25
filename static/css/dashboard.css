@@ -1,0 +1,463 @@
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #222;
+    line-height: 1.5;
+}
+
+a,
+button {
+    font: inherit;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    background: #243f7a;
+    color: #fff;
+    padding: 25px 40px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.3;
+}
+
+.header p {
+    margin: 6px 0 0;
+    opacity: 0.9;
+}
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 24px;
+}
+
+/* =========================================
+   STATISTICS
+========================================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-bottom: 35px;
+}
+
+.stat-card {
+    min-width: 0;
+    min-height: 150px;
+    padding: 26px;
+    background: #fff;
+    border: 1px solid #edf0f5;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(20, 40, 80, 0.07);
+}
+
+.stat-card h3 {
+    margin: 0;
+    color: #626d7e;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.stat-card p {
+    margin: 12px 0 0;
+    color: #243f7a;
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.25;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================
+   INTERVIEW HISTORY SECTION
+========================================= */
+
+.section {
+    width: 100%;
+    min-width: 0;
+    padding: 28px;
+    background: #fff;
+    border: 1px solid #edf0f5;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(20, 40, 80, 0.06);
+}
+
+.section h2 {
+    margin: 0 0 22px;
+    color: #243f7a;
+    font-size: 28px;
+    line-height: 1.3;
+}
+
+/* List container created by dashboard.js */
+
+#interviewList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+}
+
+/* =========================================
+   INTERVIEW CARDS
+   Supports both history-card and
+   existing interview-card classes
+========================================= */
+
+.history-card,
+.interview-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid #dfe4ed;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(20, 40, 80, 0.035);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.history-card:hover,
+.interview-card:hover {
+    border-color: #c6d2e8;
+    box-shadow: 0 5px 16px rgba(20, 40, 80, 0.07);
+}
+
+/* Card title and date */
+
+.history-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    min-width: 0;
+}
+
+.history-role,
+.interview-info h3 {
+    margin: 0;
+    color: #243f7a;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.history-date {
+    flex-shrink: 0;
+    color: #687386;
+    font-size: 13px;
+    text-align: right;
+}
+
+/* =========================================
+   INTERVIEW DETAILS GRID
+========================================= */
+
+.history-details {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    min-width: 0;
+}
+
+.history-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    min-width: 0;
+    padding: 14px;
+    background: #f5f7fb;
+    border: 1px solid #edf0f5;
+    border-radius: 10px;
+}
+
+.history-field-label {
+    color: #727d8e;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.history-field-value {
+    max-width: 100%;
+    color: #263348;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.score-field .history-field-value {
+    color: #243f7a;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* =========================================
+   LEGACY CARD DETAILS
+========================================= */
+
+.interview-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.interview-info p {
+    margin: 5px 0;
+    color: #626d7e;
+    overflow-wrap: anywhere;
+}
+
+.score {
+    color: #243f7a;
+    font-size: 22px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================
+   ACTIONS AND BUTTONS
+========================================= */
+
+.history-actions,
+.interview-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    min-width: 0;
+    margin-top: 0;
+    padding-top: 16px;
+    border-top: 1px solid #edf0f5;
+}
+
+.history-view-button,
+.view-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    max-width: 100%;
+    padding: 10px 16px;
+    background: #0c50c6;
+    color: #fff;
+    border: 1px solid #0c50c6;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    text-align: center;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.history-view-button:hover,
+.view-button:hover {
+    background: #093f9f;
+    color: #fff;
+}
+
+.history-delete-button,
+.delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 10px 16px;
+    background: #fff;
+    color: #b42318;
+    border: 1px solid #e2b8b5;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.history-delete-button:hover,
+.delete-button:hover {
+    background: #fff1f0;
+}
+
+.history-delete-button:disabled,
+.delete-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   EMPTY, LOADING AND ERROR STATES
+========================================= */
+
+.history-status,
+.empty-message,
+.error-message {
+    padding: 14px 0;
+    color: #687386;
+    overflow-wrap: anywhere;
+}
+
+.history-empty {
+    padding: 24px;
+    background: #f8faff;
+    border: 1px dashed #cbd5e5;
+    border-radius: 12px;
+    color: #626d7e;
+}
+
+.history-empty p {
+    margin-top: 0;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+    .container {
+        padding: 0 18px;
+    }
+
+    .stats-grid {
+        gap: 16px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    .section {
+        padding: 22px;
+    }
+
+    .history-details {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+    .header {
+        padding: 22px 18px;
+    }
+
+    .header h1 {
+        font-size: 23px;
+    }
+
+    .container {
+        margin: 20px auto;
+        padding: 0 12px;
+    }
+
+    .stats-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+        margin-bottom: 22px;
+    }
+
+    .stat-card {
+        min-height: auto;
+        padding: 20px;
+    }
+
+    .stat-card h3 {
+        font-size: 16px;
+    }
+
+    .stat-card p {
+        font-size: 29px;
+    }
+
+    .section {
+        padding: 18px 14px;
+        border-radius: 12px;
+    }
+
+    .section h2 {
+        font-size: 23px;
+    }
+
+    .history-card,
+    .interview-card {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .history-heading {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .history-role,
+    .interview-info h3 {
+        font-size: 18px;
+    }
+
+    .history-date {
+        text-align: left;
+    }
+
+    .history-details {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .history-field {
+        padding: 12px;
+    }
+
+    .history-actions,
+    .interview-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .history-view-button,
+    .view-button,
+    .history-delete-button,
+    .delete-button {
+        width: 100%;
+    }
+}

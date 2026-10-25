@@ -1,0 +1,914 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080b14">
+    <title>Interview Results | Intervexa</title>
+
+    <style>
+        :root {
+            --bg: #080b14;
+            --panel: #101727;
+            --line: #263650;
+            --text: #f3f6ff;
+            --muted: #a6b1c9;
+            --blue: #4d8dff;
+            --purple: #8a63ff;
+            --teal: #36d6be;
+        }
+
+        * { box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            background:
+                radial-gradient(ellipse at 88% 0%, rgba(52,87,179,.15), transparent 35rem),
+                radial-gradient(ellipse at 0% 48%, rgba(89,65,167,.07), transparent 30rem),
+                var(--bg);
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; }
+        [hidden] { display: none !important; }
+
+        .container {
+            width: min(1100px, 90%);
+            margin: 0 auto;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            border-bottom: 1px solid rgba(130,153,197,.14);
+            background: rgba(8,11,20,.93);
+            backdrop-filter: blur(18px);
+        }
+
+        .nav-inner {
+            width: min(1160px, 90%);
+            min-height: 74px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            letter-spacing: -.6px;
+            font-weight: 850;
+        }
+
+        .brand-mark {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: white;
+            font-size: 20px;
+            background: linear-gradient(140deg, #588fff, #7755ef);
+            box-shadow: 0 7px 22px rgba(77,141,255,.2);
+        }
+
+        .brand-name span { color: #81a6ff; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links > a:not(.nav-cta) {
+            color: #aeb9d0;
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        .nav-links > a:not(.nav-cta):hover { color: #fff; }
+
+        .nav-cta, .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-height: 42px;
+            padding: 0 16px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            color: #fff;
+            background: linear-gradient(110deg, #704dff, #256df5);
+            box-shadow: 0 8px 22px rgba(67,99,245,.2);
+            font-size: 12px;
+            font-weight: 800;
+            transition: transform .2s, box-shadow .2s;
+            cursor: pointer;
+        }
+
+        .nav-cta:hover, .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 11px 27px rgba(67,99,245,.3);
+        }
+
+        /* PAGE HEADER */
+
+        .page-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 43px 0 24px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: #7da5ff;
+            font-size: 10px;
+            font-weight: 850;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--teal);
+            box-shadow: 0 0 0 4px rgba(54,214,190,.1);
+        }
+
+        .page-header h1 {
+            margin: 9px 0 7px;
+            font-size: clamp(31px, 4vw, 43px);
+            line-height: 1.18;
+            letter-spacing: -1.4px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(95deg, #5f9dff, #9a79ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .page-description {
+            max-width: 680px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        /* STATUS */
+
+        .status {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            margin: 0 0 20px;
+            padding: 14px 16px;
+            color: #b9c8e1;
+            background: rgba(16,27,46,.92);
+            border: 1px solid #2a3c5b;
+            border-radius: 12px;
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .status::before {
+            content: "";
+            flex: 0 0 8px;
+            width: 8px;
+            height: 8px;
+            margin-top: 5px;
+            border-radius: 50%;
+            background: #78a2ff;
+            box-shadow: 0 0 0 4px rgba(120,162,255,.1);
+        }
+
+        .status.error {
+            color: #ffc1c8;
+            border-color: #6d3342;
+            background: rgba(85,24,38,.24);
+        }
+
+        .status.error::before {
+            background: #ff7386;
+            box-shadow: 0 0 0 4px rgba(255,115,134,.1);
+        }
+
+        /* SUMMARY AND QUESTION PANELS */
+
+        .panel, .question-card {
+            min-width: 0;
+            padding: 24px;
+            margin-bottom: 20px;
+            color: var(--text);
+            background: linear-gradient(145deg, rgba(17,26,44,.98), rgba(10,16,28,.98));
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 14px 38px rgba(0,0,0,.13);
+        }
+
+        .panel h2, .question-card h2 {
+            margin: 0 0 20px;
+            color: #f3f6ff;
+            font-size: 20px;
+            line-height: 1.35;
+            letter-spacing: -.4px;
+            overflow-wrap: anywhere;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 13px;
+        }
+
+        .metric {
+            min-width: 0;
+            padding: 17px;
+            background: linear-gradient(145deg, #121e32, #0c1423);
+            border: 1px solid #273853;
+            border-radius: 12px;
+        }
+
+        .metric-label {
+            display: block;
+            margin-bottom: 9px;
+            color: #91a2bf;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .metric-value {
+            display: block;
+            color: #8eb1ff;
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
+
+        .bar {
+            height: 7px;
+            margin-top: 13px;
+            overflow: hidden;
+            background: #26344d;
+            border-radius: 20px;
+        }
+
+        .bar-fill {
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #6552ff, #3b93ff);
+            border-radius: 20px;
+            transition: width .45s ease;
+        }
+
+        /* TOPIC LISTS */
+
+        .topic-list {
+            display: grid;
+            gap: 9px;
+        }
+
+        .topic-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+            padding: 12px 14px;
+            background: #0d1626;
+            border: 1px solid #253650;
+            border-radius: 10px;
+        }
+
+        .topic-item strong {
+            min-width: 0;
+            color: #e7eefc;
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .topic-item span {
+            flex-shrink: 0;
+            color: #8eb1ff;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .recommendation-list {
+            padding-left: 22px;
+            margin: 0;
+            color: #aab7cf;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .recommendation-list li {
+            padding-left: 4px;
+            margin: 3px 0;
+        }
+
+        .muted {
+            color: #8d9bb5;
+            font-size: 12px;
+        }
+
+        /* QUESTION-WISE EVALUATION */
+
+        #questions { min-width: 0; }
+
+        .question-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #6056ff, #398eff, transparent 78%);
+        }
+
+        .question-card > h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .question-card > h2::before {
+            content: "Q";
+            flex: 0 0 33px;
+            width: 33px;
+            height: 33px;
+            display: grid;
+            place-items: center;
+            color: #dce7ff;
+            background: #1a3260;
+            border: 1px solid #355995;
+            border-radius: 10px;
+            font-size: 13px;
+        }
+
+        .question-card > p {
+            margin: 8px 0 15px;
+            color: #9aa9c4;
+            font-size: 12px;
+            line-height: 1.75;
+            overflow-wrap: anywhere;
+        }
+
+        .question-card h3 {
+            margin: 20px 0 9px;
+            color: #eaf0ff;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .answer {
+            min-width: 0;
+            padding: 15px 16px;
+            color: #c4cfe3;
+            line-height: 1.8;
+            font-size: 13px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            background: #0a1220;
+            border: 1px solid #263650;
+            border-radius: 10px;
+        }
+
+        .question-card .grid { margin-top: 10px; }
+
+        .question-card .grid .metric { padding: 14px; }
+        .question-card .grid .metric-value { font-size: 19px; }
+
+        /* FOOTER */
+
+        .footer {
+            margin-top: 48px;
+            border-top: 1px solid rgba(130,153,197,.13);
+            background: #070a12;
+        }
+
+        .footer-inner {
+            width: min(1100px, 90%);
+            min-height: 76px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-copy {
+            margin: 0;
+            color: #75829b;
+            font-size: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .footer-links a {
+            color: #9aa8c2;
+            font-size: 10px;
+        }
+
+        .footer-links a:hover { color: white; }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+            .nav-inner { min-height: 68px; }
+            .brand { font-size: 20px; }
+            .brand-mark { width: 36px; height: 36px; }
+            .nav-links { gap: 12px; }
+            .nav-links > a:not(.nav-cta) { display: none; }
+
+            .nav-cta {
+                min-height: 38px;
+                padding: 0 12px;
+                font-size: 10px;
+            }
+
+            .container { width: 92%; }
+
+            .page-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 16px;
+                padding: 33px 0 22px;
+            }
+
+            .page-header h1 {
+                font-size: 34px;
+                letter-spacing: -1px;
+            }
+
+            .panel, .question-card {
+                padding: 17px 14px;
+                border-radius: 13px;
+            }
+
+            .panel h2, .question-card h2 { font-size: 18px; }
+
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 9px;
+            }
+
+            .metric { padding: 13px 11px; }
+            .metric-value { font-size: 20px; }
+
+            .question-card .grid .metric-value { font-size: 17px; }
+
+            .topic-item { padding: 11px; }
+
+            .footer-inner {
+                justify-content: center;
+                padding: 20px 0;
+                text-align: center;
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .grid { grid-template-columns: minmax(0, 1fr); }
+            .nav-cta { padding: 0 10px; }
+            .question-card > h2 { font-size: 16px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="nav-inner">
+        <a class="brand" href="/" aria-label="Intervexa home">
+            <span class="brand-mark">✦</span>
+            <span class="brand-name">Inter<span>vexa</span></span>
+        </a>
+
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a class="nav-cta" href="/interview/setup">
+                New Interview <span aria-hidden="true">→</span>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <header class="page-header">
+        <div>
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                PERFORMANCE REVIEW
+            </div>
+
+            <h1>Interview <span class="gradient-text">Results</span></h1>
+
+            <p id="interview-info" class="page-description">
+                Loading your interview details...
+            </p>
+        </div>
+
+        <a class="button" href="/dashboard">← Back to Dashboard</a>
+    </header>
+
+    <div id="status" class="status" role="status" aria-live="polite">
+        Loading saved evaluation results...
+    </div>
+
+    <section id="summary-panel" class="panel" hidden>
+        <div class="eyebrow">SESSION SUMMARY</div>
+        <h2 style="margin-top: 8px;">Overall Performance</h2>
+
+        <div class="grid">
+            <div class="metric">
+                <span class="metric-label">Average Score</span>
+                <span id="average-score" class="metric-value">N/A</span>
+            </div>
+
+            <div class="metric">
+                <span class="metric-label">Questions Evaluated</span>
+                <span id="question-count" class="metric-value">0</span>
+            </div>
+
+            <div class="metric">
+                <span class="metric-label">Strong Topics</span>
+                <span id="strong-count" class="metric-value">0</span>
+            </div>
+
+            <div class="metric">
+                <span class="metric-label">Topics to Improve</span>
+                <span id="weak-count" class="metric-value">0</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="topics-panel" class="panel" hidden>
+        <div class="eyebrow">LEARNING INSIGHTS</div>
+
+        <h2 style="margin-top: 8px;">Strong Topics</h2>
+        <div id="strong-topics" class="topic-list"></div>
+
+        <h2 style="margin-top: 25px;">Topics to Improve</h2>
+        <div id="weak-topics" class="topic-list"></div>
+
+        <h2 style="margin-top: 25px;">Recommendations</h2>
+        <ul id="recommendations" class="recommendation-list"></ul>
+    </section>
+
+    <section aria-labelledby="questions-heading">
+        <div class="eyebrow">DETAILED REVIEW</div>
+        <h2 id="questions-heading" style="margin: 8px 0 18px; font-size: 24px;">
+            Question-wise Evaluation
+        </h2>
+        <div id="questions"></div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <a class="brand" href="/" aria-label="Intervexa home">
+            <span class="brand-mark">✦</span>
+            <span class="brand-name">Inter<span>vexa</span></span>
+        </a>
+
+        <p class="footer-copy">AI-powered interview preparation</p>
+
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/interview/setup">New Interview</a>
+        </nav>
+    </div>
+</footer>
+
+<script>
+    const sessionId = {{ session_id | tojson }};
+
+    const statusElement = document.getElementById("status");
+    const questionsElement = document.getElementById("questions");
+
+    function element(tag, className, text) {
+        const node = document.createElement(tag);
+
+        if (className) {
+            node.className = className;
+        }
+
+        if (text !== undefined && text !== null) {
+            node.textContent = String(text);
+        }
+
+        return node;
+    }
+
+    function readable(value, fallback = "Not available") {
+        if (value === null || value === undefined || value === "") {
+            return fallback;
+        }
+
+        return String(value);
+    }
+
+    function metricText(value, scale = 100) {
+        if (value === null || value === undefined || value === "") {
+            return "N/A";
+        }
+
+        const number = Number(value);
+
+        if (!Number.isFinite(number)) {
+            return "N/A";
+        }
+
+        if (scale === 1) {
+            return `${(number * 100).toFixed(1)}%`;
+        }
+
+        return `${number.toFixed(1)}/100`;
+    }
+
+    function addMetric(grid, label, value, scale = 100) {
+        const card = element("div", "metric");
+        card.appendChild(element("span", "metric-label", label));
+
+        const displayValue = element(
+            "span",
+            "metric-value",
+            metricText(value, scale)
+        );
+
+        card.appendChild(displayValue);
+
+        if (value !== null && value !== undefined && value !== "") {
+            const numericValue = Number(value);
+
+            if (Number.isFinite(numericValue)) {
+                const percent = Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        scale === 1 ? numericValue * 100 : numericValue
+                    )
+                );
+
+                const bar = element("div", "bar");
+                const fill = element("div", "bar-fill");
+                fill.style.width = `${percent}%`;
+
+                bar.appendChild(fill);
+                card.appendChild(bar);
+            }
+        }
+
+        grid.appendChild(card);
+    }
+
+    function addAnswerSection(parent, title, value) {
+        parent.appendChild(element("h3", "", title));
+        parent.appendChild(
+            element("div", "answer", readable(value))
+        );
+    }
+
+    function renderTopics(containerId, topics, emptyMessage) {
+        const container = document.getElementById(containerId);
+        container.replaceChildren();
+
+        if (!Array.isArray(topics) || topics.length === 0) {
+            container.appendChild(element("p", "muted", emptyMessage));
+            return;
+        }
+
+        for (const item of topics) {
+            const row = element("div", "topic-item");
+
+            row.appendChild(
+                element("strong", "", readable(item.topic, "General"))
+            );
+
+            const score = Number(item.score);
+
+            row.appendChild(
+                element(
+                    "span",
+                    "",
+                    Number.isFinite(score) ? `${score.toFixed(1)}/100` : "N/A"
+                )
+            );
+
+            container.appendChild(row);
+        }
+    }
+
+    function renderRecommendations(items) {
+        const list = document.getElementById("recommendations");
+        list.replaceChildren();
+
+        if (!Array.isArray(items) || items.length === 0) {
+            list.appendChild(
+                element("li", "", "No recommendations available yet.")
+            );
+            return;
+        }
+
+        for (const item of items) {
+            list.appendChild(element("li", "", item));
+        }
+    }
+
+    function renderQuestion(question, index) {
+        const card = element("article", "question-card");
+
+        card.appendChild(
+            element("h2", "", `Question ${index + 1}`)
+        );
+
+        card.appendChild(
+            element(
+                "p",
+                "muted",
+                `Topic: ${readable(question.topic, "General")} · ` +
+                `Difficulty: ${readable(question.difficulty, "N/A")}`
+            )
+        );
+
+        addAnswerSection(card, "Interview Question", question.question);
+        addAnswerSection(card, "Your Submitted Answer", question.candidate_answer);
+        addAnswerSection(card, "Expected / Model Answer", question.expected_answer);
+
+        card.appendChild(element("h3", "", "Evaluation Metrics"));
+
+        const grid = element("div", "grid");
+
+        addMetric(grid, "Overall Score", question.score);
+        addMetric(grid, "Correctness", question.correctness);
+        addMetric(grid, "Concept Coverage", question.concept_coverage);
+        addMetric(grid, "Relevance", question.relevance);
+        addMetric(grid, "Completeness", question.completeness);
+        addMetric(grid, "Semantic Similarity", question.similarity, 1);
+
+        card.appendChild(grid);
+
+        card.appendChild(
+            element("p", "", `Verdict: ${readable(question.verdict)}`)
+        );
+
+        card.appendChild(
+            element(
+                "p",
+                "",
+                `Evaluation Method: ${readable(question.evaluation_method)}`
+            )
+        );
+
+        addAnswerSection(card, "Evaluator Feedback", question.feedback);
+        addAnswerSection(card, "Suggested Improved Answer", question.improved_answer);
+
+        return card;
+    }
+
+    async function loadResults() {
+        try {
+            const response = await fetch(
+                `/api/interview/${encodeURIComponent(sessionId)}/result`,
+                {
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || data.success === false) {
+                throw new Error(
+                    data.error || "Could not load interview results."
+                );
+            }
+
+            const questions = Array.isArray(data.questions)
+                ? data.questions
+                : [];
+
+            document.getElementById("interview-info").textContent =
+                `${readable(data.role)} · ${readable(data.topic)} · ` +
+                `${readable(data.difficulty)}`;
+
+            document.getElementById("summary-panel").hidden = false;
+            document.getElementById("topics-panel").hidden = false;
+
+            document.getElementById("average-score").textContent =
+                metricText(data.average_score);
+
+            document.getElementById("question-count").textContent =
+                String(questions.length);
+
+            const strongTopics = Array.isArray(data.strong_topics)
+                ? data.strong_topics
+                : [];
+
+            const weakTopics = Array.isArray(data.weak_topics)
+                ? data.weak_topics
+                : [];
+
+            document.getElementById("strong-count").textContent =
+                String(strongTopics.length);
+
+            document.getElementById("weak-count").textContent =
+                String(weakTopics.length);
+
+            renderTopics(
+                "strong-topics",
+                strongTopics,
+                "No strong topics identified yet."
+            );
+
+            renderTopics(
+                "weak-topics",
+                weakTopics,
+                "No weak topics identified yet."
+            );
+
+            renderRecommendations(data.recommendations);
+
+            questionsElement.replaceChildren();
+
+            if (questions.length === 0) {
+                statusElement.textContent =
+                    "No evaluated answers have been saved for this interview.";
+                return;
+            }
+
+            questions.forEach((question, index) => {
+                questionsElement.appendChild(
+                    renderQuestion(question, index)
+                );
+            });
+
+            statusElement.textContent =
+                "Saved evaluation results loaded successfully.";
+
+        } catch (error) {
+            console.error("Could not load interview results:", error);
+
+            statusElement.classList.add("error");
+            statusElement.textContent =
+                error.message || "An unexpected error occurred.";
+        }
+    }
+
+    loadResults();
+</script>
+
+</body>
+</html>

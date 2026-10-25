@@ -1,0 +1,874 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080b14">
+    <title>Intervexa | Dashboard</title>
+
+    <style>
+        :root {
+            --bg: #080b14;
+            --panel: #101727;
+            --line: #24314a;
+            --text: #f3f6ff;
+            --muted: #a6b1c9;
+            --blue: #4d8dff;
+            --purple: #8a63ff;
+            --teal: #36d6be;
+        }
+
+        * { box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            background:
+                radial-gradient(ellipse at 88% 0%, rgba(52,87,179,.15), transparent 35rem),
+                radial-gradient(ellipse at 0% 55%, rgba(89,65,167,.07), transparent 30rem),
+                var(--bg);
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* NAVBAR */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            border-bottom: 1px solid rgba(130,153,197,.14);
+            background: rgba(8,11,20,.93);
+            backdrop-filter: blur(18px);
+        }
+
+        .header-inner {
+            width: min(1160px, 90%);
+            min-height: 74px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            letter-spacing: -.6px;
+            font-weight: 850;
+        }
+
+        .brand-mark {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: white;
+            font-size: 20px;
+            background: linear-gradient(140deg,#588fff,#7755ef);
+            box-shadow: 0 7px 22px rgba(77,141,255,.2);
+        }
+
+        .brand-name span { color: #81a6ff; }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .header-nav > a:not(.nav-cta) {
+            color: #aeb9d0;
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        .header-nav > a:not(.nav-cta):hover { color: #fff; }
+
+        .nav-cta, .primary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 43px;
+            padding: 0 17px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            color: #fff;
+            background: linear-gradient(110deg,#704dff,#256df5);
+            box-shadow: 0 8px 22px rgba(67,99,245,.2);
+            font-size: 12px;
+            font-weight: 800;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .nav-cta:hover, .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 11px 27px rgba(67,99,245,.3);
+        }
+
+        .container {
+            width: min(1160px, 90%);
+            margin: auto;
+        }
+
+        /* PAGE HEADING */
+
+        .page-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 28px;
+            padding: 48px 0 30px;
+        }
+
+        .eyebrow, .section-kicker {
+            color: #7da5ff;
+            font-size: 10px;
+            font-weight: 850;
+            letter-spacing: 1.5px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--teal);
+            box-shadow: 0 0 0 4px rgba(54,214,190,.1);
+        }
+
+        .page-heading h1 {
+            margin: 8px 0;
+            font-size: clamp(32px,4vw,43px);
+            line-height: 1.18;
+            letter-spacing: -1.3px;
+        }
+
+        .page-heading h1 span { color: #80a4ff; }
+
+        .page-heading p {
+            max-width: 650px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .page-heading .primary-btn { flex-shrink: 0; }
+
+        /* STATISTICS */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3,minmax(0,1fr));
+            gap: 17px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 185px;
+            padding: 22px 23px;
+            border: 1px solid #26334c;
+            border-radius: 16px;
+            background: linear-gradient(145deg,#121b2c,#0c1220 84%);
+            box-shadow: 0 12px 30px rgba(0,0,0,.12);
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            right: -48px;
+            top: -48px;
+            border: 1px solid rgba(103,148,255,.14);
+            border-radius: 50%;
+            box-shadow: 0 0 0 17px rgba(103,148,255,.025),
+                        0 0 0 34px rgba(103,148,255,.02);
+            pointer-events: none;
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .stat-icon {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            font-size: 18px;
+            color: #8cb2ff;
+            background: rgba(46,87,158,.2);
+            border: 1px solid rgba(94,143,255,.24);
+        }
+
+        .stat-label {
+            color: #7687a8;
+            font-size: 9px;
+            font-weight: 850;
+            letter-spacing: 1.2px;
+        }
+
+        .stat-card h3 {
+            margin: 17px 0 0;
+            color: #aab6cd;
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .stat-card > p {
+            margin: 1px 0 0;
+            color: #f3f6ff;
+            font-size: 31px;
+            line-height: 1.4;
+            letter-spacing: -.7px;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .stat-note {
+            display: block;
+            margin-top: 5px;
+            color: #72819d;
+            font-size: 10px;
+        }
+
+        .stat-teal .stat-icon {
+            color: #5be0c8;
+            border-color: rgba(54,214,190,.24);
+            background: rgba(21,105,91,.18);
+        }
+
+        .stat-purple .stat-icon {
+            color: #c0a2ff;
+            border-color: rgba(156,111,255,.25);
+            background: rgba(106,62,177,.18);
+        }
+
+        /* INTERVIEW HISTORY */
+
+        .section { margin-top: 15px; }
+
+        .history-section {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            padding: 25px;
+            border: 1px solid #26334b;
+            border-radius: 17px;
+            background: rgba(13,20,34,.88);
+            box-shadow: 0 16px 40px rgba(0,0,0,.12);
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 22px;
+            margin-bottom: 22px;
+            min-width: 0;
+        }
+
+        .section-heading > div {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .section-heading h2 {
+            margin: 5px 0 4px;
+            font-size: 22px;
+            letter-spacing: -.5px;
+        }
+
+        .section-heading p {
+            max-width: 100%;
+            margin: 0;
+            color: #8e9bb5;
+            font-size: 12px;
+            line-height: 1.7;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        .text-link {
+            flex-shrink: 0;
+            color: #8eb1ff;
+            font-size: 11px;
+            font-weight: 750;
+        }
+
+        .text-link:hover { color: #c0d4ff; }
+
+        .interview-list, #interviewList {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .loading-state {
+            min-height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #8290aa;
+            font-size: 12px;
+        }
+
+        .loading-state p { margin: 0; }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #7199ff;
+            box-shadow: 0 0 0 5px rgba(113,153,255,.1);
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            50% { opacity: .45; transform: scale(.85); }
+        }
+
+        /* INTERVIEW CARDS GENERATED BY EXISTING JS */
+
+        #interviewList > div:not(.loading-state),
+        #interviewList > article,
+        #interviewList .interview-card,
+        #interviewList .history-card,
+        #interviewList .session-card {
+            display: block;
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            margin: 10px 0;
+            padding: 17px 18px;
+            overflow: hidden;
+            overflow-wrap: anywhere;
+            border: 1px solid #263650;
+            border-radius: 12px;
+            background: linear-gradient(120deg,#111b2d,#0c121f);
+            color: #dce5f7;
+        }
+
+        #interviewList h3,
+        #interviewList h4 {
+            margin: 0 0 12px;
+            color: #eef3ff;
+            font-size: 17px;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        #interviewList p {
+            max-width: 100%;
+            margin: 7px 0;
+            color: #aebbd2;
+            font-size: 13px;
+            line-height: 1.65;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        /* Label and value displayed in separate columns */
+
+        #interviewList .history-detail-row {
+            display: grid;
+            grid-template-columns: minmax(92px,118px) minmax(0,1fr);
+            align-items: start;
+            gap: 10px;
+            padding: 7px 0;
+            margin: 0;
+            border-bottom: 1px solid rgba(130,153,197,.12);
+        }
+
+        #interviewList .history-detail-label {
+            color: #8193b2;
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        #interviewList .history-detail-value {
+            color: #e1e9f8;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: left;
+            overflow-wrap: anywhere;
+        }
+
+        #interviewList .history-detail-row:last-of-type {
+            border-bottom: 0;
+        }
+
+        #interviewList a {
+            display: inline-block;
+            max-width: 100%;
+            margin-top: 8px;
+            color: #8eb1ff;
+            font-size: 13px;
+            line-height: 1.65;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        #interviewList button {
+            max-width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #35496c;
+            border-radius: 8px;
+            color: #f3f6ff;
+            background: #172543;
+            cursor: pointer;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        #interviewList button:hover { background: #20345a; }
+
+        #interviewList table {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            border-collapse: collapse;
+            color: #dce5f7;
+        }
+
+        #interviewList th,
+        #interviewList td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #26334b;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        #interviewList th {
+            color: #91a4c6;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+        }
+
+        /* BOTTOM TIP */
+
+        .bottom-tip {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 22px 0 58px;
+            padding: 19px 22px;
+            border: 1px solid #243858;
+            border-radius: 14px;
+            background: linear-gradient(100deg,rgba(19,35,62,.76),rgba(17,19,43,.75));
+        }
+
+        .tip-icon {
+            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            color: #9cbaff;
+            background: #1a3155;
+        }
+
+        .bottom-tip h3 {
+            margin: 0 0 3px;
+            font-size: 12px;
+        }
+
+        .bottom-tip p {
+            margin: 0;
+            color: #8f9db6;
+            font-size: 11px;
+        }
+
+        .tip-link {
+            flex-shrink: 0;
+            margin-left: auto;
+            color: #91b4ff;
+            font-size: 11px;
+            font-weight: 750;
+        }
+
+        .tip-link:hover { color: #d0deff; }
+
+        /* FOOTER */
+
+        .footer {
+            border-top: 1px solid rgba(130,153,197,.13);
+            background: #070a12;
+        }
+
+        .footer-inner {
+            width: min(1160px,90%);
+            min-height: 74px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand { font-size: 16px; }
+
+        .footer-brand .brand-mark {
+            width: 29px;
+            height: 29px;
+            border-radius: 9px;
+            font-size: 14px;
+        }
+
+        .footer-inner > p {
+            color: #75829b;
+            font-size: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+        }
+
+        .footer-links a {
+            color: #9aa8c2;
+            font-size: 10px;
+        }
+
+        .footer-links a:hover { color: white; }
+
+        /* RESPONSIVE */
+
+        @media (max-width:800px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .stat-card { min-height: 155px; }
+            .page-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+            .bottom-tip {
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+            .tip-link { margin-left: 52px; }
+        }
+
+        @media (max-width:560px) {
+            .header-inner {
+                width: 91%;
+                min-height: 68px;
+            }
+
+            .brand { font-size: 20px; }
+            .brand-mark { width: 36px; height: 36px; }
+            .header-nav { gap: 13px; }
+            .header-nav > a:not(.nav-cta) { display: none; }
+
+            .nav-cta {
+                min-height: 39px;
+                padding: 0 12px;
+                font-size: 10px;
+            }
+
+            .container { width: 91%; }
+            .page-heading { padding-top: 35px; gap: 18px; }
+            .page-heading h1 { font-size: 34px; }
+
+            .history-section { padding: 17px 12px; }
+            .section-heading { gap: 10px; margin-bottom: 16px; }
+            .section-heading h2 { font-size: 21px; }
+            .section-heading p { font-size: 12px; }
+
+            #interviewList > div:not(.loading-state),
+            #interviewList > article,
+            #interviewList .interview-card,
+            #interviewList .history-card,
+            #interviewList .session-card {
+                padding: 15px 13px;
+            }
+
+            #interviewList .history-detail-row {
+                grid-template-columns: minmax(78px,96px) minmax(0,1fr);
+                gap: 8px;
+            }
+
+            #interviewList .history-detail-label { font-size: 11px; }
+            #interviewList .history-detail-value { font-size: 12px; }
+            #interviewList a { font-size: 12px; }
+
+            .footer-inner {
+                justify-content: center;
+                padding: 20px 0;
+                text-align: center;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .footer-inner > p { margin: 0; }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            *,*::before,*::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-inner">
+
+            <a class="brand" href="/" aria-label="Intervexa home">
+                <span class="brand-mark">✦</span>
+                <span class="brand-name">Inter<span>vexa</span></span>
+            </a>
+
+            <nav class="header-nav" aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/interview/setup" class="nav-cta">
+                    Start Interview <span aria-hidden="true">→</span>
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="page-heading">
+            <div>
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    YOUR PROGRESS
+                </div>
+
+                <h1>Interview <span>Dashboard</span></h1>
+
+                <p>
+                    Review your practice activity, track your scores,
+                    and keep improving with every session.
+                </p>
+            </div>
+
+            <a href="/interview/setup" class="primary-btn">
+                ＋ New Interview
+            </a>
+        </section>
+
+        <!-- Existing statistics IDs preserved -->
+
+        <section class="stats-grid" aria-label="Interview statistics">
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon" aria-hidden="true">▣</span>
+                    <span class="stat-label">ACTIVITY</span>
+                </div>
+                <h3>Total Interviews</h3>
+                <p id="totalInterviews">0</p>
+                <span class="stat-note">Sessions completed or recorded</span>
+            </div>
+
+            <div class="stat-card stat-teal">
+                <div class="stat-top">
+                    <span class="stat-icon" aria-hidden="true">☷</span>
+                    <span class="stat-label">PRACTICE</span>
+                </div>
+                <h3>Total Questions</h3>
+                <p id="totalQuestions">0</p>
+                <span class="stat-note">Questions across your sessions</span>
+            </div>
+
+            <div class="stat-card stat-purple">
+                <div class="stat-top">
+                    <span class="stat-icon" aria-hidden="true">◎</span>
+                    <span class="stat-label">PERFORMANCE</span>
+                </div>
+                <h3>Average Score</h3>
+                <p id="averageScore">0.00/100</p>
+                <span class="stat-note">Average of available interview scores</span>
+            </div>
+
+        </section>
+
+        <!-- Existing interview history container ID preserved -->
+
+        <section class="section history-section">
+
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">YOUR ACTIVITY</div>
+                    <h2>Interview History</h2>
+                    <p>Your previous sessions and available performance details.</p>
+                </div>
+
+                <a href="/interview/setup" class="text-link">
+                    Start a new session →
+                </a>
+            </div>
+
+            <div id="interviewList" class="interview-list">
+                <div class="loading-state">
+                    <span class="loading-dot"></span>
+                    <p>Loading interviews...</p>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="bottom-tip">
+            <div class="tip-icon" aria-hidden="true">✦</div>
+
+            <div>
+                <h3>Small steps lead to stronger interviews.</h3>
+                <p>
+                    Keep practising, review your feedback, and revisit
+                    topics that need more attention.
+                </p>
+            </div>
+
+            <a href="/interview/setup" class="tip-link">Practice now →</a>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+
+            <a class="brand footer-brand" href="/" aria-label="Intervexa home">
+                <span class="brand-mark">✦</span>
+                <span class="brand-name">Inter<span>vexa</span></span>
+            </a>
+
+            <p>AI-powered interview preparation</p>
+
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/interview/setup">Start Interview</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!--
+        Presentation helper:
+        It formats history labels created by the existing dashboard.js.
+        The API calls, statistics IDs, and result links are not replaced.
+    -->
+    <script>
+        (function () {
+            const labels = [
+                [/^Average\s*Score\s*:?\s*/i, "Average Score"],
+                [/^Difficulty\s*:?\s*/i, "Difficulty"],
+                [/^Questions\s*:?\s*/i, "Questions"],
+                [/^Topic\s*:?\s*/i, "Topic"]
+            ];
+
+            function formatHistoryDetails() {
+                const root = document.getElementById("interviewList");
+                if (!root) return;
+
+                root.querySelectorAll("p").forEach(function (paragraph) {
+                    if (
+                        paragraph.dataset.intervexaFormatted === "true" ||
+                        paragraph.classList.contains("history-detail-row")
+                    ) {
+                        return;
+                    }
+
+                    if (paragraph.querySelector("a, button, input, select, textarea")) {
+                        return;
+                    }
+
+                    const rawText = paragraph.textContent.trim();
+                    if (!rawText) return;
+
+                    for (const [pattern, label] of labels) {
+                        const match = rawText.match(pattern);
+                        if (!match) continue;
+
+                        const value = rawText.slice(match[0].length).trim();
+                        if (!value) continue;
+
+                        const row = document.createElement("p");
+                        row.className = "history-detail-row";
+                        row.dataset.intervexaFormatted = "true";
+
+                        const labelSpan = document.createElement("span");
+                        labelSpan.className = "history-detail-label";
+                        labelSpan.textContent = label;
+
+                        const valueSpan = document.createElement("span");
+                        valueSpan.className = "history-detail-value";
+                        valueSpan.textContent = value;
+
+                        row.append(labelSpan, valueSpan);
+                        paragraph.replaceWith(row);
+                        break;
+                    }
+                });
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", formatHistoryDetails);
+            } else {
+                formatHistoryDetails();
+            }
+
+            const target = document.getElementById("interviewList");
+
+            if (target && "MutationObserver" in window) {
+                const observer = new MutationObserver(function () {
+                    formatHistoryDetails();
+                });
+
+                observer.observe(target, {
+                    childList: true,
+                    subtree: true,
+                    characterData: true
+                });
+            }
+        })();
+    </script>
+
+    <!-- Your existing dashboard JavaScript remains connected -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>

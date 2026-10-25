@@ -1,0 +1,743 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080b14">
+    <title>Interview Details | Intervexa</title>
+
+    <style>
+        :root {
+            --bg: #080b14;
+            --line: #263650;
+            --text: #f3f6ff;
+            --muted: #a6b1c9;
+            --blue: #4d8dff;
+            --purple: #8a63ff;
+            --teal: #36d6be;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            background:
+                radial-gradient(ellipse at 88% 0%, rgba(52,87,179,.15), transparent 35rem),
+                radial-gradient(ellipse at 0% 48%, rgba(89,65,167,.07), transparent 30rem),
+                var(--bg);
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid rgba(130,153,197,.14);
+            background: rgba(8,11,20,.93);
+            backdrop-filter: blur(18px);
+        }
+
+        .nav-inner {
+            width: min(1120px, 92%);
+            min-height: 74px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+            font-size: 22px;
+            letter-spacing: -.6px;
+            font-weight: 850;
+        }
+
+        .brand-mark {
+            width: 39px;
+            height: 39px;
+            flex: 0 0 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: white;
+            font-size: 20px;
+            background: linear-gradient(140deg, #588fff, #7755ef);
+            box-shadow: 0 7px 22px rgba(77,141,255,.2);
+        }
+
+        .brand-name span { color: #81a6ff; }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link, .primary-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 41px;
+            padding: 0 15px;
+            border: 1px solid #34435e;
+            border-radius: 10px;
+            color: #dce6f9;
+            background: #111a2b;
+            font-size: 12px;
+            font-weight: 750;
+            transition: transform .2s, border-color .2s, background .2s;
+        }
+
+        .nav-link:hover {
+            background: #172541;
+            border-color: #5574ae;
+            transform: translateY(-1px);
+        }
+
+        .primary-link {
+            color: white;
+            border-color: transparent;
+            background: linear-gradient(110deg, #704dff, #256df5);
+            box-shadow: 0 8px 22px rgba(67,99,245,.2);
+        }
+
+        .primary-link:hover { transform: translateY(-1px); }
+
+        .container {
+            width: min(1050px, 92%);
+            margin: 0 auto;
+        }
+
+        .page-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 22px;
+            padding: 42px 0 24px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: #7da5ff;
+            font-size: 10px;
+            font-weight: 850;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--teal);
+            box-shadow: 0 0 0 4px rgba(54,214,190,.1);
+        }
+
+        .page-heading h1 {
+            margin: 9px 0 7px;
+            color: #f4f7ff;
+            font-size: clamp(31px, 4vw, 43px);
+            line-height: 1.18;
+            letter-spacing: -1.4px;
+        }
+
+        .gradient-text {
+            color: transparent;
+            background: linear-gradient(95deg, #5f9dff, #9a79ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .interview-info {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .status {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            color: #b9c8e1;
+            background: rgba(16,27,46,.92);
+            border: 1px solid #2a3c5b;
+            border-radius: 12px;
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .status::before {
+            content: "";
+            flex: 0 0 8px;
+            width: 8px;
+            height: 8px;
+            margin-top: 5px;
+            border-radius: 50%;
+            background: #78a2ff;
+            box-shadow: 0 0 0 4px rgba(120,162,255,.1);
+        }
+
+        .status.error {
+            color: #ffc1c8;
+            border-color: #6d3342;
+            background: rgba(85,24,38,.24);
+        }
+
+        .status.error::before {
+            background: #ff7386;
+            box-shadow: 0 0 0 4px rgba(255,115,134,.1);
+        }
+
+        #questions { min-width: 0; }
+
+        .question-card {
+            position: relative;
+            min-width: 0;
+            margin-bottom: 18px;
+            padding: 23px;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(17,26,44,.98), rgba(10,16,28,.98));
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 14px 38px rgba(0,0,0,.13);
+        }
+
+        .question-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #6056ff, #398eff, transparent 80%);
+            pointer-events: none;
+        }
+
+        .question-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #25334b;
+        }
+
+        .question-heading h2 {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+            margin: 0;
+            color: #f2f6ff;
+            font-size: 18px;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .question-index {
+            display: grid;
+            place-items: center;
+            flex: 0 0 34px;
+            width: 34px;
+            height: 34px;
+            color: #dce7ff;
+            background: #1a3260;
+            border: 1px solid #355995;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .score-pill {
+            padding: 6px 10px;
+            color: #b8d0ff;
+            background: rgba(49,91,160,.21);
+            border: 1px solid #304d7a;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .meta-chip {
+            padding: 5px 9px;
+            color: #a6c2ff;
+            background: #14233d;
+            border: 1px solid #2a3d5c;
+            border-radius: 7px;
+            font-size: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .detail-block {
+            margin-top: 15px;
+            min-width: 0;
+        }
+
+        .detail-block h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 8px;
+            color: #dfe9ff;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .detail-block h3::before {
+            content: "";
+            width: 3px;
+            height: 14px;
+            flex: 0 0 3px;
+            border-radius: 5px;
+            background: linear-gradient(180deg, #8a63ff, #4d8dff);
+        }
+
+        .detail-text {
+            min-width: 0;
+            padding: 14px 15px;
+            color: #c4cfe3;
+            background: #0a1220;
+            border: 1px solid #263650;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.85;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .field {
+            min-width: 0;
+            padding: 13px;
+            background: #0b1423;
+            border: 1px solid #283a55;
+            border-radius: 10px;
+        }
+
+        .field-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #899bb9;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .4px;
+        }
+
+        .field-value {
+            display: block;
+            color: #e1e9f8;
+            font-size: 12px;
+            font-weight: 650;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .empty-state {
+            padding: 28px 20px;
+            color: #a6b6d1;
+            background: rgba(13,21,36,.9);
+            border: 1px dashed #344765;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer {
+            margin-top: 42px;
+            border-top: 1px solid rgba(130,153,197,.13);
+            background: #070a12;
+        }
+
+        .footer-inner {
+            width: min(1050px, 92%);
+            min-height: 74px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-copy {
+            color: #75829b;
+            font-size: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .footer-links a {
+            color: #9aa8c2;
+            font-size: 10px;
+        }
+
+        .footer-links a:hover { color: white; }
+
+        @media (max-width: 650px) {
+            .nav-inner { min-height: 68px; }
+            .brand { font-size: 20px; }
+            .brand-mark { width: 36px; height: 36px; flex-basis: 36px; }
+            .nav-link { min-height: 37px; padding: 0 10px; font-size: 11px; }
+            .primary-link { display: none; }
+            .container { width: 94%; }
+
+            .page-heading {
+                align-items: flex-start;
+                flex-direction: column;
+                padding-top: 30px;
+            }
+
+            .page-heading h1 {
+                font-size: 33px;
+                letter-spacing: -1px;
+            }
+
+            .question-card {
+                padding: 17px 13px;
+                border-radius: 13px;
+            }
+
+            .question-heading h2 { font-size: 16px; }
+            .field-grid { grid-template-columns: minmax(0, 1fr); }
+            .detail-text { padding: 12px; }
+
+            .footer-inner {
+                justify-content: center;
+                padding: 19px 0;
+                text-align: center;
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="nav-inner">
+        <a class="brand" href="/" aria-label="Intervexa home">
+            <span class="brand-mark">✦</span>
+            <span class="brand-name">Inter<span>vexa</span></span>
+        </a>
+
+        <div class="nav-actions">
+            <a class="nav-link" href="/dashboard">← Dashboard</a>
+            <a class="primary-link" href="/interview/setup">New Interview →</a>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+    <section class="page-heading">
+        <div>
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                SAVED SESSION REVIEW
+            </div>
+            <h1>Interview <span class="gradient-text">Details</span></h1>
+            <p id="interviewInfo" class="interview-info">
+                Loading interview details...
+            </p>
+        </div>
+    </section>
+
+    <div id="status" class="status" role="status" aria-live="polite">
+        Loading saved interview questions...
+    </div>
+
+    <div id="questions" aria-live="polite">
+        <div class="empty-state">Loading questions...</div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <a class="brand" href="/" aria-label="Intervexa home">
+            <span class="brand-mark">✦</span>
+            <span class="brand-name">Inter<span>vexa</span></span>
+        </a>
+        <span class="footer-copy">AI-powered interview preparation</span>
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/interview/setup">New Interview</a>
+        </nav>
+    </div>
+</footer>
+
+<script>
+"use strict";
+
+const sessionId = {{ session_id | tojson }};
+
+const statusElement = document.getElementById("status");
+const questionsElement = document.getElementById("questions");
+
+function element(tag, className, text) {
+    const node = document.createElement(tag);
+
+    if (className) node.className = className;
+
+    if (text !== undefined && text !== null) {
+        node.textContent = String(text);
+    }
+
+    return node;
+}
+
+function readable(value, fallback = "Not available") {
+    if (value === null || value === undefined || value === "") {
+        return fallback;
+    }
+
+    return String(value);
+}
+
+function formatDate(value) {
+    if (!value) return "Date unavailable";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) return String(value);
+
+    return date.toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
+function addDetailBlock(parent, title, value, fallback = "Not provided") {
+    const block = element("section", "detail-block");
+
+    block.appendChild(element("h3", "", title));
+    block.appendChild(
+        element("div", "detail-text", readable(value, fallback))
+    );
+
+    parent.appendChild(block);
+}
+
+function addField(parent, label, value) {
+    const field = element("div", "field");
+
+    field.append(
+        element("span", "field-label", label),
+        element("span", "field-value", readable(value, "—"))
+    );
+
+    parent.appendChild(field);
+}
+
+function createQuestionCard(item, index) {
+    const card = element("article", "question-card");
+
+    const heading = element("div", "question-heading");
+    const title = element("h2", "");
+
+    title.appendChild(
+        element("span", "question-index", String(index + 1))
+    );
+
+    title.appendChild(
+        element("span", "", `Question ${index + 1}`)
+    );
+
+    const rawScore = item.score;
+    let scoreText = "Not evaluated";
+
+    if (rawScore !== null && rawScore !== undefined && rawScore !== "") {
+        const scoreNumber = Number(rawScore);
+
+        scoreText = Number.isFinite(scoreNumber)
+            ? `${scoreNumber.toFixed(1)}/10`
+            : String(rawScore);
+    }
+
+    heading.append(
+        title,
+        element("span", "score-pill", `Score: ${scoreText}`)
+    );
+
+    card.appendChild(heading);
+
+    const meta = element("div", "meta-row");
+
+    meta.append(
+        element("span", "meta-chip", `Topic: ${readable(item.topic, "General")}`),
+        element("span", "meta-chip", `Difficulty: ${readable(item.difficulty, "N/A")}`)
+    );
+
+    card.appendChild(meta);
+
+    addDetailBlock(
+        card,
+        "Interview Question",
+        item.question,
+        "Question text unavailable."
+    );
+
+    addDetailBlock(
+        card,
+        "Your Answer",
+        item.candidate_answer,
+        "No answer submitted."
+    );
+
+    addDetailBlock(
+        card,
+        "Expected / Model Answer",
+        item.expected_answer,
+        "No expected answer saved."
+    );
+
+    const fields = element("div", "field-grid");
+
+    addField(fields, "Verdict", item.verdict);
+    addField(fields, "Score", scoreText);
+
+    card.appendChild(fields);
+
+    addDetailBlock(
+        card,
+        "Evaluator Feedback",
+        item.feedback,
+        "No feedback saved."
+    );
+
+    return card;
+}
+
+async function loadInterview() {
+    statusElement.classList.remove("error");
+    statusElement.textContent = "Loading saved interview questions...";
+
+    try {
+        const response = await fetch(
+            `/api/interviews/${encodeURIComponent(sessionId)}`,
+            { headers: { "Accept": "application/json" } }
+        );
+
+        let data;
+
+        try {
+            data = await response.json();
+        } catch {
+            throw new Error(`Invalid server response (HTTP ${response.status}).`);
+        }
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || "Interview not found.");
+        }
+
+        const interview = data.interview || {};
+
+        const questionItems = Array.isArray(interview.questions)
+            ? interview.questions
+            : [];
+
+        document.getElementById("interviewInfo").textContent =
+            `${readable(interview.role, "Interview")} · ${formatDate(interview.created_at)}`;
+
+        questionsElement.replaceChildren();
+
+        if (questionItems.length === 0) {
+            questionsElement.appendChild(
+                element(
+                    "div",
+                    "empty-state",
+                    "No saved questions were found for this interview."
+                )
+            );
+
+            statusElement.textContent =
+                "Interview loaded, but no saved question records were found.";
+
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+
+        questionItems.forEach((item, index) => {
+            fragment.appendChild(createQuestionCard(item || {}, index));
+        });
+
+        questionsElement.appendChild(fragment);
+
+        statusElement.textContent =
+            `${questionItems.length} saved question${questionItems.length === 1 ? "" : "s"} loaded successfully.`;
+
+    } catch (error) {
+        console.error("Interview details loading failed:", error);
+
+        statusElement.classList.add("error");
+        statusElement.textContent =
+            error.message || "Could not load interview details.";
+
+        questionsElement.replaceChildren(
+            element(
+                "div",
+                "empty-state",
+                "Interview details could not be loaded. Return to the dashboard and try again."
+            )
+        );
+    }
+}
+
+loadInterview();
+</script>
+
+</body>
+</html>

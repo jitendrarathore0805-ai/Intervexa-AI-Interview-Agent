@@ -1,0 +1,1368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080b14">
+    <title>Interview Setup | Intervexa</title>
+
+    <style>
+        :root {
+            --bg: #080b14;
+            --panel: #101727;
+            --line: #263650;
+            --text: #f3f6ff;
+            --muted: #a6b1c9;
+            --blue: #4d8dff;
+            --purple: #8a63ff;
+            --teal: #36d6be;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            background:
+                radial-gradient(ellipse at 88% 0%, rgba(52,87,179,.15), transparent 35rem),
+                radial-gradient(ellipse at 0% 48%, rgba(89,65,167,.07), transparent 30rem),
+                var(--bg);
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button, input, select, textarea {
+            font: inherit;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            border-bottom: 1px solid rgba(130,153,197,.14);
+            background: rgba(8,11,20,.93);
+            backdrop-filter: blur(18px);
+        }
+
+        .nav-inner {
+            width: min(1160px, 92%);
+            min-height: 74px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            letter-spacing: -.6px;
+            font-weight: 850;
+        }
+
+        .brand-mark {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: white;
+            font-size: 20px;
+            background: linear-gradient(140deg,#588fff,#7755ef);
+            box-shadow: 0 7px 22px rgba(77,141,255,.2);
+        }
+
+        .brand-name span {
+            color: #81a6ff;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 41px;
+            padding: 0 15px;
+            border: 1px solid #34435e;
+            border-radius: 10px;
+            color: #dce6f9;
+            background: #111a2b;
+            font-size: 12px;
+            font-weight: 750;
+            transition: .2s;
+        }
+
+        .nav-link:hover {
+            background: #172541;
+            border-color: #5574ae;
+            transform: translateY(-1px);
+        }
+
+        /* PAGE LAYOUT */
+
+        .container {
+            width: min(950px, 92%);
+            margin: 0 auto;
+            padding: 38px 0 58px;
+        }
+
+        .page-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 22px;
+            margin-bottom: 23px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: #7da5ff;
+            font-size: 10px;
+            font-weight: 850;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--teal);
+            box-shadow: 0 0 0 4px rgba(54,214,190,.1);
+        }
+
+        .page-heading h1 {
+            margin: 9px 0 8px;
+            color: #f4f7ff;
+            font-size: clamp(31px, 4vw, 43px);
+            line-height: 1.18;
+            letter-spacing: -1.5px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(95deg, #5f9dff, #9a79ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            max-width: 690px;
+            margin: 0 0 23px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.85;
+        }
+
+        /* MAIN CARD */
+
+        .card {
+            position: relative;
+            min-width: 0;
+            padding: 27px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: linear-gradient(145deg, rgba(17,26,44,.98), rgba(10,16,28,.98));
+            box-shadow: 0 18px 45px rgba(0,0,0,.16);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #6056ff, #398eff, transparent 80%);
+            pointer-events: none;
+        }
+
+        .card h2 {
+            margin: 0 0 6px;
+            color: #f3f6ff;
+            font-size: 23px;
+            line-height: 1.3;
+        }
+
+        /* ERROR / STATUS */
+
+        .error {
+            display: none;
+            margin: 0 0 18px;
+            padding: 13px 15px;
+            color: #ffc1c8;
+            background: rgba(85,24,38,.24);
+            border: 1px solid #6d3342;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .status {
+            margin-top: 12px;
+            color: #91a4c4;
+            font-size: 12px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .status.success {
+            color: #69e1c4;
+        }
+
+        /* INNER PANELS */
+
+        .panel {
+            min-width: 0;
+            margin: 22px 0;
+            padding: 22px;
+            border: 1px solid #293a56;
+            border-radius: 14px;
+            background: rgba(11,18,31,.78);
+        }
+
+        .panel h3,
+        #setupForm > h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 17px;
+            color: #e9efff;
+            font-size: 16px;
+            font-weight: 750;
+        }
+
+        .panel h3::before,
+        #setupForm > h3::before {
+            content: "";
+            width: 4px;
+            height: 19px;
+            flex: 0 0 4px;
+            border-radius: 6px;
+            background: linear-gradient(180deg, #8a63ff, #4d8dff);
+        }
+
+        .hint {
+            margin-top: 6px;
+            color: #8797b3;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        /* RESUME UPLOAD */
+
+        .upload-box {
+            padding: 20px;
+            border: 1px dashed #405777;
+            border-radius: 12px;
+            background: rgba(15,26,44,.65);
+            transition: border-color .2s, background .2s;
+        }
+
+        .upload-box:focus-within {
+            border-color: #648fff;
+            background: rgba(20,36,62,.68);
+        }
+
+        .upload-box input[type="file"] {
+            padding: 12px;
+            cursor: pointer;
+            background: #0b1424;
+        }
+
+        input[type="file"]::file-selector-button {
+            margin-right: 12px;
+            padding: 8px 11px;
+            border: 1px solid #3a5279;
+            border-radius: 7px;
+            color: #dce8ff;
+            background: #182b4a;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: #223c66;
+        }
+
+        /* FORM FIELDS */
+
+        .form-group {
+            margin-bottom: 19px;
+            min-width: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #dfe7f7;
+            font-size: 12px;
+            font-weight: 750;
+        }
+
+        input, select, textarea {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            padding: 12px 13px;
+            color: #eef3ff;
+            background: #0a1220;
+            border: 1px solid #2e405e;
+            border-radius: 9px;
+            font-size: 13px;
+            line-height: 1.5;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #697995;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #658fff;
+            background: #0c1729;
+            box-shadow: 0 0 0 3px rgba(77,141,255,.12);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            color: #f3f6ff;
+            background: #101727;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        /* BUTTONS */
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 43px;
+            padding: 11px 16px;
+            color: white;
+            background: linear-gradient(110deg, #704dff, #256df5);
+            border: 1px solid transparent;
+            border-radius: 9px;
+            box-shadow: 0 8px 20px rgba(67,99,245,.17);
+            font-size: 12px;
+            font-weight: 800;
+            text-align: center;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 11px 25px rgba(67,99,245,.27);
+        }
+
+        .button:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .button.secondary {
+            color: #dce6f9;
+            background: #17243a;
+            border-color: #344762;
+            box-shadow: none;
+        }
+
+        .button.secondary:hover {
+            background: #20314e;
+            border-color: #4f6890;
+        }
+
+        #startButton {
+            width: 100%;
+            min-height: 49px;
+            margin-top: 4px;
+            font-size: 13px;
+        }
+
+        /* INTERVIEW INFO */
+
+        .info-box {
+            margin: 22px 0;
+            padding: 17px 18px 17px 20px;
+            color: #afc5eb;
+            background: linear-gradient(100deg, rgba(24,45,80,.62), rgba(20,24,52,.6));
+            border: 1px solid #304971;
+            border-left: 3px solid #6d8fff;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.85;
+        }
+
+        .info-box strong {
+            color: #dce8ff;
+        }
+
+        /* EXTRACTED RESUME DETAILS */
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .detail {
+            min-width: 0;
+            padding: 13px;
+            background: #0b1423;
+            border: 1px solid #283a55;
+            border-radius: 10px;
+        }
+
+        .detail-label {
+            color: #8497b7;
+            font-size: 9px;
+            font-weight: 850;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            min-width: 0;
+            margin-top: 5px;
+            color: #e1e9f8;
+            font-size: 12px;
+            line-height: 1.75;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        #resumeSummaryWrap,
+        #jobMatchWrap {
+            padding: 14px;
+            background: #0b1423;
+            border: 1px solid #283a55;
+            border-radius: 10px;
+            color: #dfe7f7;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .skill {
+            max-width: 100%;
+            padding: 6px 11px;
+            color: #a8c4ff;
+            background: rgba(40,79,145,.22);
+            border: 1px solid #2b4775;
+            border-radius: 20px;
+            font-size: 11px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        /* LOADING */
+
+        .loading {
+            display: none;
+            margin-top: 13px;
+            padding: 12px 14px;
+            color: #a9c0eb;
+            background: #101c31;
+            border: 1px solid #2c4268;
+            border-radius: 9px;
+            font-size: 12px;
+        }
+
+        .loading::before {
+            content: "";
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            margin-right: 9px;
+            border-radius: 50%;
+            vertical-align: middle;
+            background: #75a3ff;
+            box-shadow: 0 0 0 4px rgba(117,163,255,.1);
+        }
+
+        /* FOOTER */
+
+        .footer {
+            border-top: 1px solid rgba(130,153,197,.13);
+            background: #070a12;
+        }
+
+        .footer-inner {
+            width: min(950px, 92%);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-copy {
+            color: #75829b;
+            font-size: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 17px;
+        }
+
+        .footer-links a {
+            color: #9aa8c2;
+            font-size: 10px;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+            .nav-inner {
+                min-height: 68px;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .brand-mark {
+                width: 36px;
+                height: 36px;
+            }
+
+            .container {
+                width: 94%;
+                padding-top: 29px;
+            }
+
+            .page-heading {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .page-heading h1 {
+                font-size: 34px;
+                letter-spacing: -1px;
+            }
+
+            .card {
+                padding: 18px 15px;
+                border-radius: 14px;
+            }
+
+            .card h2 {
+                font-size: 21px;
+            }
+
+            .panel {
+                padding: 17px 13px;
+            }
+
+            .row, .details-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 0;
+            }
+
+            .upload-box {
+                padding: 14px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .actions .button {
+                width: 100%;
+            }
+
+            #startButton {
+                min-height: 47px;
+            }
+
+            .footer-inner {
+                justify-content: center;
+                padding: 19px 0;
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="nav-inner">
+        <a class="brand" href="/" aria-label="Intervexa home">
+            <span class="brand-mark">✦</span>
+            <span class="brand-name">Inter<span>vexa</span></span>
+        </a>
+
+        <a href="/dashboard" class="nav-link">
+            <span aria-hidden="true">▥</span> Dashboard
+        </a>
+    </div>
+</header>
+
+<main class="container">
+    <div class="page-heading">
+        <div>
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                PERSONALIZED PRACTICE
+            </div>
+
+            <h1>Set up your <span class="gradient-text">interview</span></h1>
+
+            <p class="subtitle">
+                Add your resume, review the extracted details, and configure
+                a practice session that matches your target role.
+            </p>
+        </div>
+    </div>
+
+    <section class="card">
+
+        <h2>Start New Interview</h2>
+        <p class="subtitle">
+            Personalize your session with resume context, skills, and the type
+            of interview you want to practise.
+        </p>
+
+        <div id="errorBox" class="error" role="alert" aria-live="assertive"></div>
+
+        <!-- STEP 1: RESUME UPLOAD -->
+        <section class="panel">
+            <h3>1. Upload Your Resume</h3>
+
+            <div class="upload-box">
+                <label for="resume">Resume File</label>
+
+                <input
+                    type="file"
+                    id="resume"
+                    accept=".pdf,.docx,.txt"
+                >
+
+                <p class="hint">
+                    Supported formats: PDF, DOCX and TXT. Maximum size: 8 MB.
+                </p>
+
+                <div id="resumeStatus" class="status" aria-live="polite"></div>
+
+                <div class="actions">
+                    <button type="button" id="analyzeButton" class="button">
+                        Analyze Resume →
+                    </button>
+
+                    <button type="button" id="clearResumeButton" class="button secondary">
+                        Remove Resume
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: EXTRACTED DETAILS -->
+        <section id="resumeDetails" class="panel" hidden>
+            <h3>2. Extracted Resume Details</h3>
+
+            <p class="hint" style="margin-bottom:14px">
+                These details depend on the information returned by your backend resume parser.
+                Review the values before starting the interview.
+            </p>
+
+            <div id="profileDetails" class="details-grid"></div>
+
+            <div style="margin-top:18px">
+                <strong>Extracted Skills</strong>
+                <div id="extractedSkills" class="skills"></div>
+            </div>
+
+            <div id="resumeSummaryWrap" style="margin-top:18px" hidden>
+                <strong>Resume Summary</strong>
+                <div id="resumeSummary" class="detail-value"></div>
+            </div>
+
+            <div id="jobMatchWrap" style="margin-top:18px" hidden>
+                <strong>Resume–Job Match</strong>
+                <div id="jobMatch" class="detail-value"></div>
+            </div>
+        </section>
+
+        <div class="info-box">
+            <strong>Interview format:</strong>
+            5 questions, one at a time. Your existing backend can use the selected role,
+            skills, job description and resume-based RAG context to generate questions.
+        </div>
+
+        <!-- STEP 3: INTERVIEW SETTINGS -->
+        <form id="setupForm">
+            <h3>3. Interview Settings</h3>
+
+            <div class="form-group">
+                <label for="role">Target Role *</label>
+                <input
+                    type="text"
+                    id="role"
+                    name="role"
+                    required
+                    maxlength="150"
+                    placeholder="Example: Machine Learning Engineer"
+                >
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="topic">Interview Topic *</label>
+                    <input
+                        type="text"
+                        id="topic"
+                        name="topic"
+                        required
+                        maxlength="200"
+                        placeholder="Example: Machine Learning"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="difficulty">Difficulty</label>
+                    <select id="difficulty" name="difficulty">
+                        <option value="Easy">Easy</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="interviewType">Interview Type</label>
+                <select id="interviewType" name="interview_type">
+                    <option value="Technical">Technical</option>
+                    <option value="HR">HR / Behavioral</option>
+                    <option value="Mixed">Mixed</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="skills">Skills / Technologies</label>
+                <input
+                    type="text"
+                    id="skills"
+                    name="skills"
+                    maxlength="1000"
+                    placeholder="Python, Machine Learning, SQL"
+                >
+                <p class="hint">
+                    Comma-separated skills. Extracted resume skills are prefilled when available.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="jobDescription">Job Description / Additional Context</label>
+                <textarea
+                    id="jobDescription"
+                    name="job_description"
+                    maxlength="10000"
+                    placeholder="Paste the job description here..."
+                ></textarea>
+            </div>
+
+            <button type="submit" id="startButton" class="button">
+                Start 5-Question Interview →
+            </button>
+
+            <div id="loading" class="loading" role="status" aria-live="polite">
+                Creating your interview session...
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <a class="brand" href="/" aria-label="Intervexa home">
+            <span class="brand-mark">✦</span>
+            <span class="brand-name">Inter<span>vexa</span></span>
+        </a>
+
+        <span class="footer-copy">AI-powered interview preparation</span>
+
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+        </nav>
+    </div>
+</footer>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+
+const form = $("setupForm");
+const resumeInput = $("resume");
+const analyzeButton = $("analyzeButton");
+const clearResumeButton = $("clearResumeButton");
+const startButton = $("startButton");
+const errorBox = $("errorBox");
+const loading = $("loading");
+const resumeStatus = $("resumeStatus");
+const resumeDetails = $("resumeDetails");
+
+const roleInput = $("role");
+const topicInput = $("topic");
+const skillsInput = $("skills");
+const jobDescriptionInput = $("jobDescription");
+
+const MAX_RESUME_SIZE = 8 * 1024 * 1024;
+const ALLOWED_EXTENSIONS = [".pdf", ".docx", ".txt"];
+
+let resumeToken = "";
+let analyzing = false;
+let starting = false;
+let analysisFailed = false;
+
+function showError(message) {
+    errorBox.textContent = message;
+    errorBox.style.display = "block";
+}
+
+function hideError() {
+    errorBox.textContent = "";
+    errorBox.style.display = "none";
+}
+
+function setStatus(message, success = false) {
+    resumeStatus.textContent = message;
+    resumeStatus.className = "status" + (success ? " success" : "");
+}
+
+function updateButtons() {
+    analyzeButton.disabled = analyzing || starting;
+    clearResumeButton.disabled = analyzing || starting;
+    startButton.disabled = analyzing || starting;
+}
+
+async function readJson(response) {
+    const contentType = response.headers.get("content-type") || "";
+
+    if (!contentType.includes("application/json")) {
+        throw new Error(
+            "The server returned a non-JSON response. Check your Flask terminal for errors."
+        );
+    }
+
+    return response.json();
+}
+
+function asObject(value) {
+    return value && typeof value === "object" && !Array.isArray(value)
+        ? value
+        : {};
+}
+
+function toText(value) {
+    if (value === null || value === undefined || value === "") {
+        return "";
+    }
+
+    if (Array.isArray(value)) {
+        return value.map(toText).filter(Boolean).join(", ");
+    }
+
+    if (typeof value === "object") {
+        return Object.entries(value)
+            .map(([key, val]) => {
+                const text = toText(val);
+                return text ? `${key}: ${text}` : "";
+            })
+            .filter(Boolean)
+            .join("\n");
+    }
+
+    return String(value);
+}
+
+function firstValue(objects, keys) {
+    for (const object of objects) {
+        if (!object || typeof object !== "object") {
+            continue;
+        }
+
+        for (const key of keys) {
+            const value = object[key];
+
+            if (
+                value !== null &&
+                value !== undefined &&
+                value !== "" &&
+                !(Array.isArray(value) && value.length === 0)
+            ) {
+                return value;
+            }
+        }
+    }
+
+    return "";
+}
+
+function normalizeSkills(value) {
+    let skills = [];
+
+    if (Array.isArray(value)) {
+        skills = value.map(item => {
+            if (typeof item === "string") {
+                return item.trim();
+            }
+
+            if (item && typeof item === "object") {
+                return String(item.name || item.skill || "").trim();
+            }
+
+            return "";
+        });
+    } else if (typeof value === "string") {
+        skills = value.split(/[,;\n|]/).map(skill => skill.trim());
+    }
+
+    return [...new Set(skills.filter(Boolean))];
+}
+
+function addDetail(label, value) {
+    if (
+        value === "" ||
+        value === null ||
+        value === undefined ||
+        (Array.isArray(value) && value.length === 0)
+    ) {
+        return;
+    }
+
+    const item = document.createElement("div");
+    item.className = "detail";
+
+    const title = document.createElement("div");
+    title.className = "detail-label";
+    title.textContent = label;
+
+    const content = document.createElement("div");
+    content.className = "detail-value";
+    content.textContent = toText(value);
+
+    item.append(title, content);
+    $("profileDetails").appendChild(item);
+}
+
+function renderResumeDetails(data) {
+    const analysis = asObject(data.analysis);
+    const jdAnalysis = asObject(data.jd_analysis);
+    const match = asObject(data.match);
+
+    const profile = asObject(
+        analysis.profile ||
+        analysis.personal_info ||
+        analysis.personal_details ||
+        analysis.contact
+    );
+
+    const sources = [profile, analysis, data];
+
+    $("profileDetails").replaceChildren();
+
+    addDetail("Resume File", data.filename || resumeInput.files[0]?.name);
+    addDetail("Words Extracted", data.word_count);
+
+    addDetail(
+        "Name",
+        firstValue(sources, ["name", "full_name", "candidate_name"])
+    );
+
+    addDetail(
+        "Email",
+        firstValue(sources, ["email", "email_address"])
+    );
+
+    addDetail(
+        "Phone",
+        firstValue(sources, ["phone", "phone_number", "mobile"])
+    );
+
+    addDetail(
+        "Education",
+        firstValue(sources, [
+            "education",
+            "educations",
+            "degree",
+            "qualification"
+        ])
+    );
+
+    addDetail(
+        "Experience",
+        firstValue(sources, [
+            "experience",
+            "work_experience",
+            "years_of_experience"
+        ])
+    );
+
+    addDetail("Suggested Role", data.suggested_role);
+
+    const extractedSkills = normalizeSkills(
+        firstValue([analysis], [
+            "skills",
+            "technical_skills",
+            "extracted_skills"
+        ])
+    );
+
+    $("extractedSkills").replaceChildren();
+
+    if (extractedSkills.length > 0) {
+        extractedSkills.forEach(skill => {
+            const chip = document.createElement("span");
+            chip.className = "skill";
+            chip.textContent = skill;
+            $("extractedSkills").appendChild(chip);
+        });
+    } else {
+        $("extractedSkills").textContent =
+            "No structured skills were returned by the resume parser.";
+    }
+
+    const summary = firstValue([analysis], [
+        "summary",
+        "resume_summary",
+        "professional_summary",
+        "objective"
+    ]);
+
+    $("resumeSummaryWrap").hidden = !summary;
+    $("resumeSummary").textContent = toText(summary);
+
+    const matchValue = firstValue([match, jdAnalysis], [
+        "match_percentage",
+        "match_score",
+        "similarity",
+        "score",
+        "overall_match",
+        "summary"
+    ]);
+
+    $("jobMatchWrap").hidden =
+        matchValue === "" ||
+        matchValue === null ||
+        matchValue === undefined;
+
+    $("jobMatch").textContent =
+        typeof matchValue === "number" &&
+        matchValue >= 0 &&
+        matchValue <= 1
+            ? `${(matchValue * 100).toFixed(1)}%`
+            : toText(matchValue);
+
+    resumeDetails.hidden = false;
+
+    // Auto-fill only empty fields so existing user input is preserved.
+    if (!roleInput.value.trim() && data.suggested_role) {
+        roleInput.value = data.suggested_role;
+    }
+
+    if (!skillsInput.value.trim() && extractedSkills.length > 0) {
+        skillsInput.value = extractedSkills.join(", ");
+    }
+
+    if (!topicInput.value.trim() && extractedSkills.length > 0) {
+        const preferredTopic = extractedSkills.find(skill =>
+            /machine learning|deep learning|artificial intelligence|python|nlp/i.test(skill)
+        );
+
+        topicInput.value = preferredTopic || extractedSkills[0];
+    }
+}
+
+function resetResume() {
+    resumeToken = "";
+    analysisFailed = false;
+
+    resumeInput.value = "";
+    resumeDetails.hidden = true;
+
+    $("profileDetails").replaceChildren();
+    $("extractedSkills").replaceChildren();
+
+    $("resumeSummary").textContent = "";
+    $("resumeSummaryWrap").hidden = true;
+
+    $("jobMatch").textContent = "";
+    $("jobMatchWrap").hidden = true;
+
+    setStatus("");
+}
+
+async function analyzeResume() {
+    hideError();
+
+    const file = resumeInput.files[0];
+
+    if (!file) {
+        showError("Please select a resume file first.");
+        return;
+    }
+
+    const fileName = file.name.toLowerCase();
+
+    if (!ALLOWED_EXTENSIONS.some(extension => fileName.endsWith(extension))) {
+        showError("Please upload a PDF, DOCX or TXT file.");
+        return;
+    }
+
+    if (file.size > MAX_RESUME_SIZE) {
+        showError("Resume file must be 8 MB or smaller.");
+        return;
+    }
+
+    analyzing = true;
+    analysisFailed = false;
+    updateButtons();
+
+    setStatus("Analyzing resume and creating its RAG index...");
+
+    try {
+        const body = new FormData();
+
+        body.append("resume", file);
+        body.append(
+            "job_description",
+            jobDescriptionInput.value.trim()
+        );
+
+        const response = await fetch("/api/resume/analyze", {
+            method: "POST",
+            body: body
+        });
+
+        const data = await readJson(response);
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || "Resume analysis failed.");
+        }
+
+        if (!data.resume_token) {
+            throw new Error(
+                "The backend did not return a resume token. Check /api/resume/analyze."
+            );
+        }
+
+        resumeToken = data.resume_token;
+
+        renderResumeDetails(data);
+
+        setStatus(
+            "Resume analyzed successfully. Review your extracted details below.",
+            true
+        );
+
+    } catch (error) {
+        console.error("Resume analysis failed:", error);
+
+        resumeToken = "";
+        analysisFailed = true;
+
+        showError(error.message || "Unable to analyze the resume.");
+
+        setStatus("Analysis failed. Please retry or remove the resume.");
+
+    } finally {
+        analyzing = false;
+        updateButtons();
+    }
+}
+
+analyzeButton.addEventListener("click", analyzeResume);
+
+resumeInput.addEventListener("change", () => {
+    hideError();
+
+    // A newly selected file must be analyzed before using it.
+    resumeToken = "";
+    analysisFailed = false;
+    resumeDetails.hidden = true;
+
+    $("profileDetails").replaceChildren();
+    $("extractedSkills").replaceChildren();
+
+    if (resumeInput.files.length > 0) {
+        setStatus(
+            "Resume selected. Click Analyze Resume to extract its details."
+        );
+    } else {
+        setStatus("");
+    }
+});
+
+clearResumeButton.addEventListener("click", () => {
+    resetResume();
+    hideError();
+});
+
+jobDescriptionInput.addEventListener("change", () => {
+    if (resumeToken) {
+        setStatus(
+            "Job description changed. Re-analyze the resume if you want refreshed job-match results."
+        );
+    }
+});
+
+form.addEventListener("submit", async event => {
+    event.preventDefault();
+    hideError();
+
+    if (starting) {
+        return;
+    }
+
+    if (analyzing) {
+        showError("Please wait until resume analysis has finished.");
+        return;
+    }
+
+    if (!roleInput.value.trim() || !topicInput.value.trim()) {
+        showError("Please enter both the target role and interview topic.");
+        return;
+    }
+
+    if (resumeInput.files.length > 0 && !resumeToken) {
+        showError(
+            "The selected resume has not been analyzed successfully. Retry analysis or remove the resume to continue without it."
+        );
+        return;
+    }
+
+    starting = true;
+    updateButtons();
+    loading.style.display = "block";
+
+    const payload = {
+        role: roleInput.value.trim(),
+        topic: topicInput.value.trim(),
+        difficulty: $("difficulty").value,
+        interview_type: $("interviewType").value,
+        skills: skillsInput.value.trim(),
+        job_description: jobDescriptionInput.value.trim(),
+        resume_token: resumeToken,
+        total_questions: 5
+    };
+
+    try {
+        const response = await fetch("/api/interview/start", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await readJson(response);
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || "Unable to start the interview.");
+        }
+
+        if (!data.session_id) {
+            throw new Error(
+                "The backend did not return a session ID. Check /api/interview/start."
+            );
+        }
+
+        window.location.assign(
+            `/interview/${encodeURIComponent(data.session_id)}`
+        );
+
+    } catch (error) {
+        console.error("Interview start failed:", error);
+
+        showError(error.message || "Unable to start the interview.");
+
+        starting = false;
+        loading.style.display = "none";
+        updateButtons();
+    }
+});
+</script>
+
+</body>
+</html>

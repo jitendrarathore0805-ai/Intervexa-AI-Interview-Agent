@@ -1,0 +1,52 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.log
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Local databases and runtime data
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploaded files and personal documents
+uploads/
+user_uploads/
+data/uploads/
+resumes/
+
+# Large local model weights
+models/qwen/
+*.safetensors
+*.gguf
+*.onnx
+*.pt
+*.pth
+
+# Hugging Face caches
+.cache/
+huggingface/
+
+# Local editor settings
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Generated RAG vector index
+vector_db/
+

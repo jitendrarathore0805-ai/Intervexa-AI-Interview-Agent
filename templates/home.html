@@ -1,0 +1,1058 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="Intervexa helps you practice technical and HR interviews, review your answers, and prepare with more confidence.">
+  <title>Intervexa | Interview Preparation</title>
+
+  <style>
+    :root {
+      --bg: #080b14;
+      --panel: #101727;
+      --line: #24314a;
+      --text: #f3f6ff;
+      --muted: #a6b1c9;
+      --blue: #4d8dff;
+      --purple: #8a63ff;
+      --teal: #36d6be;
+      --shadow: 0 22px 70px rgba(0, 0, 0, .28);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      background:
+        radial-gradient(ellipse at 80% 0%, rgba(54, 94, 190, .12), transparent 34rem),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(1160px, 90%); margin-inline: auto; }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(130, 153, 197, .14);
+      background: rgba(8, 11, 20, .92);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      font-size: 23px;
+      letter-spacing: -.7px;
+    }
+
+    .brand-mark {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      font-size: 20px;
+      font-weight: 900;
+      background: linear-gradient(140deg, #588fff, #7755ef);
+      box-shadow: 0 7px 22px rgba(77, 141, 255, .22);
+    }
+
+    .brand-name span { color: #81a6ff; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 29px;
+    }
+
+    .nav-links > a:not(.btn) {
+      color: #aeb9d0;
+      font-size: 13px;
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    .nav-links > a:not(.btn):hover,
+    .nav-links > a.active {
+      color: #fff;
+    }
+
+    .nav-links > a.active { position: relative; }
+
+    .nav-links > a.active::after {
+      content: "";
+      height: 2px;
+      background: var(--blue);
+      position: absolute;
+      bottom: -27px;
+      left: 0;
+      right: 0;
+      border-radius: 4px;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      color: white;
+      cursor: pointer;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 19px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 750;
+      border: 1px solid transparent;
+      transition: transform .2s, background .2s,
+                  border-color .2s, box-shadow .2s;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(110deg, #704dff, #256df5);
+      box-shadow: 0 9px 25px rgba(67, 99, 245, .22);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 30px rgba(67, 99, 245, .32);
+    }
+
+    .btn-quiet {
+      color: #edf2ff;
+      border-color: #35425d;
+      background: rgba(15, 22, 38, .75);
+    }
+
+    .btn-quiet:hover {
+      background: #151f34;
+      border-color: #52658a;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 75px 0 67px;
+      border-bottom: 1px solid rgba(130, 153, 197, .12);
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 58px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      border: 1px solid #263b62;
+      border-radius: 30px;
+      color: #a9c6ff;
+      background: rgba(35, 65, 112, .26);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 4px rgba(54, 214, 190, .1);
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      max-width: 650px;
+      color: #f7f9ff;
+      font-size: clamp(42px, 5vw, 62px);
+      line-height: 1.08;
+      letter-spacing: -2.5px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(95deg, #5f9dff, #9a79ff);
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 540px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 27px;
+    }
+
+    .proof-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-top: 25px;
+      color: #abb7d0;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .proof-points span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .check {
+      display: grid;
+      place-items: center;
+      width: 17px;
+      height: 17px;
+      border: 1px solid #4774ce;
+      border-radius: 50%;
+      color: #8bb2ff;
+      font-size: 10px;
+      font-style: normal;
+    }
+
+    /* CSS-BASED INTERVIEW PREVIEW */
+    .preview-area {
+      position: relative;
+      padding: 8px 0 8px 8px;
+    }
+
+    .preview-halo {
+      position: absolute;
+      width: 80%;
+      height: 85%;
+      top: 8%;
+      left: 13%;
+      background: #173c96;
+      filter: blur(85px);
+      opacity: .22;
+      pointer-events: none;
+    }
+
+    .preview-shell {
+      position: relative;
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr);
+      min-height: 390px;
+      border: 1px solid #2c3d60;
+      border-radius: 19px;
+      background: linear-gradient(145deg, #121b2e, #080d19);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .preview-sidebar {
+      padding: 20px 12px;
+      border-right: 1px solid #25334e;
+      background: rgba(5, 10, 20, .35);
+    }
+
+    .mini-brand {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 4px 25px;
+      color: #eef3ff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .mini-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 23px;
+      height: 23px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #568fff, #805bfa);
+    }
+
+    .side-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 8px;
+      margin-bottom: 6px;
+      border-radius: 8px;
+      color: #8795b1;
+      font-size: 10px;
+    }
+
+    .side-item.selected {
+      color: white;
+      background: #1d376a;
+      box-shadow: inset 2px 0 #6194ff;
+    }
+
+    .side-glyph { width: 15px; text-align: center; }
+
+    .preview-main {
+      min-width: 0;
+      padding: 21px 20px 18px;
+    }
+
+    .preview-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .preview-top h2 {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .live-pill {
+      padding: 4px 9px;
+      color: #58e6c8;
+      border: 1px solid #15594e;
+      border-radius: 30px;
+      background: rgba(19, 115, 94, .16);
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .preview-subtitle {
+      margin-top: 4px;
+      color: #7f8eaa;
+      font-size: 10px;
+    }
+
+    .question-panel {
+      margin-top: 19px;
+      padding: 16px;
+      border: 1px solid #2b3d5e;
+      border-radius: 12px;
+      background: #0d1628;
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: #8da4c9;
+      font-size: 9px;
+    }
+
+    .question-panel h3 {
+      margin: 10px 0 13px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      padding: 4px 8px;
+      color: #a6c2ff;
+      background: #14294b;
+      border-radius: 6px;
+      font-size: 9px;
+    }
+
+    .answer-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 17px 0 8px;
+      color: #d7e0f4;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .answer-box {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      min-height: 64px;
+      padding: 12px;
+      color: #7788a7;
+      border: 1px solid #263b5b;
+      border-radius: 10px;
+      background: #0a1323;
+      font-size: 10px;
+    }
+
+    .mic-mark {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      color: #c9dcff;
+      background: #163a77;
+    }
+
+    .preview-submit {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px;
+      border: 0;
+      border-radius: 9px;
+      color: white;
+      background: linear-gradient(100deg, #5c48f3, #3e65ff);
+      font-size: 10px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .preview-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 14px;
+      color: #8492ad;
+      font-size: 9px;
+    }
+
+    .progress { display: flex; gap: 4px; }
+
+    .progress span {
+      width: 18px;
+      height: 4px;
+      border-radius: 4px;
+      background: #263654;
+    }
+
+    .progress span:first-child { background: #5a8bff; }
+
+    .feature-float {
+      position: absolute;
+      right: -15px;
+      bottom: 26px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 190px;
+      padding: 12px 14px;
+      border: 1px solid #30425f;
+      border-radius: 13px;
+      background: #111b2d;
+      box-shadow: 0 13px 34px rgba(0, 0, 0, .35);
+    }
+
+    .float-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border-radius: 10px;
+      color: #5ce1c6;
+      background: #12382f;
+      font-weight: 800;
+    }
+
+    .float-title { font-size: 10px; font-weight: 800; }
+    .float-copy { color: #8b9ab4; font-size: 9px; }
+
+    /* FEATURES */
+    .section { padding: 70px 0; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .kicker {
+      color: #7da5ff;
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .section-head h2, .center-head h2 {
+      margin: 7px 0 0;
+      color: #f4f7ff;
+      font-size: clamp(29px, 3.5vw, 38px);
+      line-height: 1.2;
+      letter-spacing: -1.1px;
+    }
+
+    .section-intro {
+      max-width: 360px;
+      color: #7d8aa5;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .feature-card {
+      min-height: 158px;
+      padding: 23px 21px;
+      border: 1px solid #202d45;
+      border-radius: 15px;
+      background: linear-gradient(145deg, #11192a, #0a0f1b);
+      transition: transform .22s, border-color .22s, background .22s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: #405c8e;
+      background: linear-gradient(145deg, #141f35, #0d1526);
+    }
+
+    .feature-top {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 12px;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(94, 143, 255, .25);
+      border-radius: 12px;
+      color: #8cb2ff;
+      background: rgba(46, 87, 158, .2);
+      font-size: 19px;
+    }
+
+    .feature-card:nth-child(2) .feature-icon,
+    .feature-card:nth-child(5) .feature-icon {
+      color: #5be0c8;
+      border-color: rgba(54, 214, 190, .22);
+      background: rgba(21, 105, 91, .18);
+    }
+
+    .feature-card:nth-child(3) .feature-icon {
+      color: #c0a2ff;
+      border-color: rgba(156, 111, 255, .25);
+      background: rgba(106, 62, 177, .18);
+    }
+
+    .feature-card:nth-child(6) .feature-icon {
+      color: #f3b56c;
+      border-color: rgba(243, 181, 108, .22);
+      background: rgba(130, 79, 28, .18);
+    }
+
+    .feature-card h3 { margin: 0; font-size: 14px; }
+    .feature-card p { margin: 0; color: #929fba; font-size: 12px; line-height: 1.75; }
+
+    /* HOW IT WORKS */
+    .how-section { padding-top: 22px; }
+
+    .center-head { margin-bottom: 29px; text-align: center; }
+
+    .center-head p {
+      max-width: 570px;
+      margin: 12px auto 0;
+      color: #7d8aa5;
+      font-size: 13px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .step-card {
+      display: flex;
+      gap: 14px;
+      padding: 22px;
+      border: 1px solid #26334c;
+      border-radius: 15px;
+      background: rgba(14, 21, 36, .82);
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border-radius: 11px;
+      color: white;
+      background: linear-gradient(135deg, #634fff, #347df5);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .step-card h3 { margin: 2px 0 6px; font-size: 13px; }
+    .step-card p { color: #8e9bb5; font-size: 11px; line-height: 1.7; }
+
+    /* CTA + FOOTER */
+    .cta-section { padding: 62px 0 72px; }
+
+    .cta-panel {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      padding: 34px 38px;
+      border: 1px solid #344d83;
+      border-radius: 19px;
+      background: linear-gradient(110deg, #111e3a, #161735 65%, #17152e);
+    }
+
+    .cta-panel h2 {
+      position: relative;
+      z-index: 1;
+      margin: 7px 0 5px;
+      font-size: clamp(22px, 3vw, 31px);
+      letter-spacing: -.8px;
+    }
+
+    .cta-panel p {
+      position: relative;
+      z-index: 1;
+      max-width: 620px;
+      color: #a6b3cc;
+      font-size: 12px;
+    }
+
+    .cta-panel .btn { position: relative; z-index: 1; flex-shrink: 0; }
+
+    footer {
+      border-top: 1px solid rgba(130, 153, 197, .14);
+      background: #070a12;
+    }
+
+    .footer-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-inner .brand { font-size: 17px; }
+    .footer-inner .brand-mark { width: 30px; height: 30px; border-radius: 9px; font-size: 15px; }
+    .footer-copy { color: #75829b; font-size: 10px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+    .footer-links a { color: #9aa8c2; font-size: 10px; }
+    .footer-links a:hover { color: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 950px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero-copy { max-width: 700px; }
+      .preview-area { width: min(620px, 100%); margin: auto; }
+      .section-head { align-items: start; flex-direction: column; gap: 10px; }
+    }
+
+    @media (max-width: 700px) {
+      .nav-inner { min-height: 68px; }
+      .menu-toggle { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        align-items: stretch;
+        gap: 0;
+        padding: 12px 5% 18px;
+        border-bottom: 1px solid var(--line);
+        background: #0b101c;
+      }
+
+      .nav-links.open { display: flex; flex-direction: column; }
+      .nav-links > a:not(.btn) { padding: 11px 4px; }
+      .nav-links > a.active::after { display: none; }
+      .nav-links .btn { margin-top: 8px; }
+      .hero { padding: 54px 0 48px; }
+
+      h1 {
+        font-size: clamp(39px, 10vw, 53px);
+        letter-spacing: -1.9px;
+      }
+
+      .hero-copy { font-size: 14px; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; }
+      .proof-points { gap: 10px 13px; }
+      .preview-area { padding-right: 0; }
+
+      .preview-shell {
+        grid-template-columns: 78px minmax(0, 1fr);
+        min-height: 355px;
+      }
+
+      .preview-sidebar { padding: 16px 7px; }
+      .mini-brand { font-size: 9px; gap: 4px; padding-bottom: 18px; }
+      .mini-brand-mark { width: 20px; height: 20px; }
+      .side-item { padding: 8px 5px; font-size: 9px; gap: 5px; }
+      .preview-main { padding: 16px 12px; }
+      .question-panel { padding: 12px; }
+      .question-panel h3 { font-size: 12px; }
+      .feature-float { right: 0; bottom: 10px; }
+      .features-grid, .steps { grid-template-columns: 1fr; }
+      .section { padding: 52px 0; }
+      .how-section { padding-top: 10px; }
+      .cta-section { padding: 35px 0 53px; }
+
+      .cta-panel {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 27px 23px;
+      }
+
+      .cta-panel .btn { width: 100%; }
+
+      .footer-inner {
+        justify-content: center;
+        padding: 23px 0;
+        text-align: center;
+        flex-direction: column;
+      }
+
+      .footer-links { justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="/" aria-label="Intervexa home">
+        <span class="brand-mark">✦</span>
+        <span class="brand-name">Inter<span>vexa</span></span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="navLinks"
+      >☰</button>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a class="active" href="/">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="/dashboard">Dashboard</a>
+        <a class="btn btn-primary" href="/interview/setup">
+          Start Interview <span aria-hidden="true">→</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Interview preparation, made personal
+          </div>
+
+          <h1>Your AI Interview<br>Partner — <span class="gradient-text">Intervexa</span></h1>
+
+          <p class="hero-copy">
+            Practice technical and HR interviews in a focused workspace.
+            Work through relevant questions, explain your thinking, and use
+            answer feedback to prepare with more confidence.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/interview/setup">
+              Start Mock Interview <span aria-hidden="true">→</span>
+            </a>
+            <a class="btn btn-quiet" href="/dashboard">
+              <span aria-hidden="true">▥</span> View Dashboard
+            </a>
+          </div>
+
+          <div class="proof-points">
+            <span><i class="check">✓</i> Resume/JD context</span>
+            <span><i class="check">✓</i> Answer feedback</span>
+            <span><i class="check">✓</i> Progress review</span>
+          </div>
+        </div>
+
+        <div class="preview-area" aria-label="Illustrative interview workspace preview">
+          <div class="preview-halo"></div>
+
+          <div class="preview-shell">
+            <aside class="preview-sidebar" aria-hidden="true">
+              <div class="mini-brand">
+                <span class="mini-brand-mark">✦</span> Intervexa
+              </div>
+              <div class="side-item selected"><span class="side-glyph">▷</span> Interview</div>
+              <div class="side-item"><span class="side-glyph">▤</span> Resume</div>
+              <div class="side-item"><span class="side-glyph">▥</span> Results</div>
+              <div class="side-item"><span class="side-glyph">⚙</span> Settings</div>
+            </aside>
+
+            <div class="preview-main">
+              <div class="preview-top">
+                <div>
+                  <h2>Mock Interview</h2>
+                  <div class="preview-subtitle">Practice workspace</div>
+                </div>
+                <span class="live-pill">PREVIEW</span>
+              </div>
+
+              <div class="question-panel">
+                <div class="question-meta">
+                  <span>Sample question</span>
+                  <span>Technical</span>
+                </div>
+                <h3>What is the difference between supervised and unsupervised learning?</h3>
+                <div class="tag-row">
+                  <span class="tag">Machine Learning</span>
+                  <span class="tag">Conceptual</span>
+                  <span class="tag">Medium</span>
+                </div>
+              </div>
+
+              <div class="answer-head">
+                <span>Your answer</span>
+                <span>Example UI</span>
+              </div>
+
+              <div class="answer-box">
+                <span>Write your response and explain your reasoning...</span>
+                <span class="mic-mark" aria-hidden="true">▮</span>
+              </div>
+
+              <div class="preview-submit">
+                Submit Answer <span aria-hidden="true">→</span>
+              </div>
+
+              <div class="preview-footer">
+                <span>Question progress</span>
+                <div class="progress" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <span>1 / 5</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-float">
+            <div class="float-icon">✓</div>
+            <div>
+              <div class="float-title">Review your answers</div>
+              <div class="float-copy">Feedback to guide your next step</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Features</div>
+            <h2>Everything you need to prepare</h2>
+          </div>
+          <p class="section-intro">
+            A practical interview workflow built around preparation,
+            contextual questions, answer review, and progress.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-top"><div class="feature-icon">✦</div><h3>AI Question Generation</h3></div>
+            <p>Generate interview questions using the role, topic, skills, and difficulty options supported by your setup.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-top"><div class="feature-icon">▤</div><h3>Resume & JD RAG</h3></div>
+            <p>Retrieve relevant context from supported resume and job-description documents for more focused practice.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-top"><div class="feature-icon">◎</div><h3>Answer Evaluation</h3></div>
+            <p>Review your response using the evaluation and feedback methods implemented in the project.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-top"><div class="feature-icon">▥</div><h3>Performance Insights</h3></div>
+            <p>Use the available scores and feedback to identify topics that deserve another round of revision.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-top"><div class="feature-icon">⌘</div><h3>Flexible Interview Types</h3></div>
+            <p>Choose technical, HR, or mixed practice where those options are available in the interview setup.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-top"><div class="feature-icon">↻</div><h3>Focused Practice</h3></div>
+            <p>Build the habit of explaining concepts clearly, then revisit the areas where your answers need improvement.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how-section" id="how-it-works">
+      <div class="container">
+        <div class="center-head">
+          <div class="kicker">How it works</div>
+          <h2>Three simple steps</h2>
+          <p>Move from choosing your interview settings to practising answers and reviewing your feedback.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step-card">
+            <div class="step-number">01</div>
+            <div>
+              <h3>Set up your interview</h3>
+              <p>Select your role, topic, difficulty, and interview type. Add supported resume or job-description context if needed.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">02</div>
+            <div>
+              <h3>Answer the questions</h3>
+              <p>Work through the session and explain your understanding as you would in an actual interview.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">03</div>
+            <div>
+              <h3>Review your results</h3>
+              <p>Check the feedback and scores available in your results page, then plan what to practise next.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-panel">
+          <div>
+            <div class="kicker">Your next step</div>
+            <h2>Make every practice session count.</h2>
+            <p>Start an interview session, challenge your understanding, and prepare with a clearer view of what to improve.</p>
+          </div>
+          <a class="btn btn-primary" href="/interview/setup">
+            Start Your Interview <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="brand" href="/" aria-label="Intervexa home">
+        <span class="brand-mark">✦</span>
+        <span class="brand-name">Inter<span>vexa</span></span>
+      </a>
+
+      <p class="footer-copy">
+        © <span id="currentYear"></span> Intervexa · AI-powered interview preparation
+      </p>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="/dashboard">Dashboard</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

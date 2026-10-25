@@ -1,0 +1,1298 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080b14">
+    <title>Intervexa | Mock Interview</title>
+
+    <style>
+        :root {
+            --bg: #080b14;
+            --panel: #101727;
+            --line: #263650;
+            --text: #f3f6ff;
+            --muted: #a6b1c9;
+            --blue: #4d8dff;
+            --purple: #8a63ff;
+            --teal: #36d6be;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background:
+                radial-gradient(ellipse at 88% 0%, rgba(52,87,179,.15), transparent 35rem),
+                radial-gradient(ellipse at 0% 48%, rgba(89,65,167,.07), transparent 30rem),
+                var(--bg);
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        button, textarea, select { font: inherit; }
+        [hidden] { display: none !important; }
+
+        /* NAVBAR */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            color: var(--text);
+            border-bottom: 1px solid rgba(130,153,197,.14);
+            background: rgba(8,11,20,.93);
+            backdrop-filter: blur(18px);
+        }
+
+        .header-inner {
+            width: min(1120px, 92%);
+            min-height: 74px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 39px;
+            height: 39px;
+            flex: 0 0 39px;
+            border-radius: 12px;
+            color: white;
+            font-size: 20px;
+            font-weight: 900;
+            background: linear-gradient(140deg, #588fff, #7755ef);
+            box-shadow: 0 7px 22px rgba(77,141,255,.2);
+        }
+
+        .brand-name {
+            color: #f5f7ff;
+            font-size: 22px;
+            letter-spacing: -.6px;
+            font-weight: 850;
+        }
+
+        .brand-name span { color: #81a6ff; }
+
+        .header-copy {
+            margin-left: auto;
+            color: #8797b3;
+            font-size: 11px;
+        }
+
+        .dashboard-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 40px;
+            padding: 0 14px;
+            color: #dce6f9;
+            background: #111a2b;
+            border: 1px solid #34435e;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 750;
+            transition: .2s;
+        }
+
+        .dashboard-link:hover {
+            background: #172541;
+            border-color: #5574ae;
+            transform: translateY(-1px);
+        }
+
+        /* MAIN LAYOUT */
+        .container {
+            width: min(900px, 92%);
+            margin: 32px auto 58px;
+        }
+
+        .page-intro { margin-bottom: 22px; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: #7da5ff;
+            font-size: 10px;
+            font-weight: 850;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--teal);
+            box-shadow: 0 0 0 4px rgba(54,214,190,.1);
+        }
+
+        .page-intro h1 {
+            margin: 10px 0 8px;
+            color: #f4f7ff;
+            font-size: clamp(30px, 4vw, 42px);
+            line-height: 1.18;
+            letter-spacing: -1.4px;
+        }
+
+        .gradient-text {
+            color: transparent;
+            background: linear-gradient(95deg, #5f9dff, #9a79ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .page-intro p {
+            max-width: 680px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.85;
+        }
+
+        .card {
+            position: relative;
+            min-width: 0;
+            padding: 26px;
+            overflow: hidden;
+            color: var(--text);
+            background: linear-gradient(145deg, rgba(17,26,44,.98), rgba(10,16,28,.98));
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: 0 18px 45px rgba(0,0,0,.16);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #6056ff, #398eff, transparent 80%);
+            pointer-events: none;
+        }
+
+        /* PROGRESS */
+        .progress-section { margin-bottom: 24px; }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            color: #c6d2e7;
+            font-size: 12px;
+            font-weight: 750;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 9px;
+            overflow: hidden;
+            background: #26344d;
+            border: 1px solid #2d3e5a;
+            border-radius: 20px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #7050ff, #378dff);
+            border-radius: 20px;
+            transition: width .25s ease;
+        }
+
+        .question-number {
+            margin-bottom: 11px;
+            color: #899ab7;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-bottom: 17px;
+        }
+
+        .badge {
+            max-width: 100%;
+            padding: 7px 12px;
+            overflow-wrap: anywhere;
+            color: #b9ceff;
+            background: rgba(40,79,145,.22);
+            border: 1px solid #2b4775;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .badge span { color: #edf3ff; }
+
+        .question {
+            min-height: 36px;
+            margin: 16px 0 22px;
+            padding: 19px 20px;
+            color: #f2f6ff;
+            background: linear-gradient(120deg, #111e33, #101629);
+            border: 1px solid #2a3e60;
+            border-radius: 13px;
+            font-size: 21px;
+            font-weight: 750;
+            line-height: 1.55;
+            letter-spacing: -.3px;
+            overflow-wrap: anywhere;
+        }
+
+        /* ANSWER FIELD */
+        .answer-label {
+            display: block;
+            margin: 18px 0 9px;
+            color: #e4ebfa;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        textarea {
+            display: block;
+            width: 100%;
+            min-height: 180px;
+            padding: 15px;
+            color: #eef3ff;
+            background: #0a1220;
+            border: 1px solid #2e405e;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.75;
+            resize: vertical;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+        }
+
+        textarea::placeholder { color: #697995; }
+
+        textarea:focus, select:focus {
+            border-color: #658fff;
+            box-shadow: 0 0 0 3px rgba(77,141,255,.12);
+            outline: none;
+        }
+
+        textarea:disabled {
+            background: #0c1320;
+            color: #8593aa;
+            cursor: not-allowed;
+        }
+
+        /* VOICE PANEL */
+        .voice-panel {
+            margin-top: 18px;
+            padding: 20px;
+            background: rgba(12,20,35,.82);
+            border: 1px solid #293b57;
+            border-radius: 13px;
+        }
+
+        .voice-heading {
+            margin: 0 0 13px;
+            color: #e9efff;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .language-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .language-row label {
+            color: #b6c3da;
+            font-size: 12px;
+        }
+
+        select {
+            min-width: 220px;
+            max-width: 100%;
+            padding: 10px 12px;
+            color: #eef3ff;
+            background: #0a1220;
+            border: 1px solid #2e405e;
+            border-radius: 9px;
+            font-size: 12px;
+        }
+
+        select option { color: #f3f6ff; background: #101727; }
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        button {
+            max-width: 100%;
+            min-height: 41px;
+            margin-top: 0;
+            padding: 10px 15px;
+            border: 1px solid transparent;
+            border-radius: 9px;
+            color: white;
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: transform .18s, filter .18s, background .18s;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            filter: brightness(1.1);
+        }
+
+        button:disabled {
+            opacity: .48;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .mic-btn {
+            color: #dcfff6;
+            background: #115443;
+            border-color: #26745f;
+        }
+
+        .stop-btn {
+            color: #ffe4e8;
+            background: #682635;
+            border-color: #90404f;
+        }
+
+        .submit-btn {
+            color: white;
+            background: linear-gradient(110deg, #704dff, #256df5);
+            box-shadow: 0 8px 20px rgba(67,99,245,.17);
+        }
+
+        .next-btn {
+            display: none;
+            color: white;
+            background: linear-gradient(110deg, #126e67, #168c79);
+        }
+
+        .clear-btn, .retry-btn {
+            color: #dce6f9;
+            background: #17243a;
+            border-color: #344762;
+        }
+
+        #retryQuestionButton { margin: 0 0 10px; }
+
+        .voice-status, .loading, .error {
+            margin-top: 12px;
+            font-size: 12px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        .voice-status { color: #a8b8d1; }
+
+        .voice-note, .small-note {
+            color: #8999b3;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .voice-note { margin-bottom: 0; }
+        .loading { display: none; color: #a9c0eb; }
+        .error { color: #ff9eaa; }
+
+        /* EVALUATION RESULT */
+        .result {
+            display: none;
+            margin-top: 25px;
+            padding: 21px;
+            background: linear-gradient(145deg, #111c30, #0b1322);
+            border: 1px solid #2c4164;
+            border-radius: 14px;
+        }
+
+        .result > div:first-child {
+            color: #96a9c8;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .score {
+            margin: 4px 0 9px;
+            color: #8eb1ff;
+            font-size: 35px;
+            font-weight: 850;
+            letter-spacing: -1px;
+        }
+
+        #result > div:nth-child(3) {
+            color: #c6d4eb;
+            font-size: 12px;
+        }
+
+        #verdict { color: #69e1c4; }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .metric {
+            min-width: 0;
+            padding: 13px;
+            background: #0a1322;
+            border: 1px solid #273852;
+            border-radius: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .metric strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #899bb9;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .metric span {
+            color: #e9efff;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .result-panel {
+            margin-top: 15px;
+            padding: 16px;
+            min-width: 0;
+            background: #0b1423;
+            border: 1px solid #293b56;
+            border-radius: 11px;
+        }
+
+        .result-panel h3 {
+            margin: 0 0 10px;
+            color: #dfe9ff;
+            font-size: 13px;
+        }
+
+        .feedback, .result-text {
+            color: #bdcbe0;
+            font-size: 12px;
+            line-height: 1.85;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .result-panel .small-note { margin-bottom: 0; }
+
+        /* FOOTER */
+        .footer {
+            border-top: 1px solid rgba(130,153,197,.13);
+            background: #070a12;
+        }
+
+        .footer-inner {
+            width: min(1120px, 92%);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .footer-copy { color: #75829b; font-size: 10px; }
+
+        .footer-links { display: flex; gap: 17px; }
+        .footer-links a { color: #9aa8c2; font-size: 10px; }
+        .footer-links a:hover { color: white; }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .header-inner { min-height: 67px; }
+            .brand-name { font-size: 20px; }
+            .brand-mark { width: 36px; height: 36px; flex-basis: 36px; }
+            .header-copy { display: none; }
+            .dashboard-link { min-height: 38px; padding: 0 10px; font-size: 11px; }
+            .container { width: 94%; margin: 21px auto 40px; }
+            .page-intro h1 { font-size: 32px; letter-spacing: -1px; }
+            .card { padding: 17px 14px; border-radius: 14px; }
+            .question { padding: 15px; font-size: 18px; }
+            .voice-panel { padding: 15px 12px; }
+            select { width: 100%; min-width: 0; }
+            .metric-grid { grid-template-columns: 1fr; }
+            .action-row button { flex: 1 1 100%; width: 100%; }
+            .result { padding: 15px 12px; }
+            .result-panel { padding: 13px; }
+            .footer-inner { justify-content: center; padding: 18px 0; flex-direction: column; text-align: center; gap: 8px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner">
+        <a class="brand" href="/" aria-label="Intervexa home">
+            <span class="brand-mark">✦</span>
+            <span class="brand-name">Inter<span>vexa</span></span>
+        </a>
+        <div class="header-copy">AI-powered mock interview workspace</div>
+        <a class="dashboard-link" href="/dashboard">▥ Dashboard</a>
+    </div>
+</header>
+
+<main class="container">
+    <div class="page-intro">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> LIVE PRACTICE SESSION</div>
+        <h1>Mock <span class="gradient-text">Interview</span></h1>
+        <p>Take one question at a time, explain your thinking, and use the feedback to improve your interview skills.</p>
+    </div>
+
+    <section class="card">
+        <div class="progress-section">
+            <div class="progress-label">
+                <span id="progressText">Preparing interview...</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-track" id="progressTrack"
+                 role="progressbar" aria-label="Interview progress"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="question-number">
+            Question <span id="questionNumber">1</span> /
+            <span id="totalQuestionsText">10</span>
+        </div>
+
+        <div class="info">
+            <div class="badge">Topic: <span id="topic">{{ interview.starting_topic }}</span></div>
+            <div class="badge">Difficulty: <span id="difficulty">{{ interview.starting_difficulty }}</span></div>
+            <div class="badge">Role: <span id="role">{{ interview.role }}</span></div>
+        </div>
+
+        <div class="question" id="question" aria-live="polite">
+            Preparing your interview question...
+        </div>
+
+        <button type="button" id="retryQuestionButton" class="retry-btn" style="display:none">
+            Retry Question
+        </button>
+
+        <label class="answer-label" for="answer">Your Answer</label>
+        <textarea id="answer"
+                  placeholder="Type your answer or use the microphone below..."
+                  aria-label="Your interview answer"
+                  disabled></textarea>
+
+        <section class="voice-panel" aria-label="Voice answer controls">
+            <p class="voice-heading">🎙️ Answer with Your Voice</p>
+
+            <div class="language-row">
+                <label for="speechLanguage"><strong>Speech language:</strong></label>
+                <select id="speechLanguage">
+                    <option value="en-IN">English (India)</option>
+                    <option value="hi-IN">Hindi (India)</option>
+                    <option value="hinglish" selected>Hinglish (best effort)</option>
+                    <option value="en-US">English (US)</option>
+                </select>
+            </div>
+
+            <div class="action-row">
+                <button type="button" class="mic-btn" id="startRecordingButton" disabled>
+                    🎤 Start Recording
+                </button>
+                <button type="button" class="stop-btn" id="stopRecordingButton" disabled>
+                    ⏹ Stop Recording
+                </button>
+                <button type="button" class="clear-btn" id="clearTranscriptButton" disabled>
+                    Clear Answer
+                </button>
+            </div>
+
+            <div class="voice-status" id="voiceStatus" role="status" aria-live="polite">
+                Select a language and click Start Recording.
+            </div>
+
+            <p class="voice-note">
+                Recognized speech appears in the answer box. Review it before
+                submitting. Hinglish recognition is best-effort because browsers
+                do not provide a dedicated Hinglish locale. Voice recognition
+                depends on browser support and microphone permissions.
+            </p>
+        </section>
+
+        <div class="action-row">
+            <button type="button" class="submit-btn" id="submitButton" disabled>
+                Submit Answer
+            </button>
+            <button type="button" class="next-btn" id="nextButton">
+                Next Question →
+            </button>
+        </div>
+
+        <div class="loading" id="loading" role="status" aria-live="polite">
+            Evaluating your answer...
+        </div>
+        <div class="error" id="error" role="alert"></div>
+
+        <section class="result" id="result" aria-live="polite">
+            <div>Score:</div>
+            <div class="score" id="score">N/A</div>
+            <div>Verdict: <strong id="verdict">N/A</strong></div>
+
+            <div class="metric-grid">
+                <div class="metric"><strong>Semantic similarity</strong><span id="similarity">N/A</span></div>
+                <div class="metric"><strong>Concept coverage</strong><span id="conceptCoverage">N/A</span></div>
+                <div class="metric"><strong>Answer completeness</strong><span id="completeness">N/A</span></div>
+                <div class="metric"><strong>Question relevance</strong><span id="relevance">N/A</span></div>
+            </div>
+
+            <div class="result-panel">
+                <h3>AI Feedback</h3>
+                <div class="feedback" id="feedback">No feedback available.</div>
+            </div>
+
+            <div class="result-panel">
+                <h3>Your Submitted Answer</h3>
+                <div class="result-text" id="submittedAnswerText"></div>
+            </div>
+
+            <div class="result-panel">
+                <h3>Expected / Model Answer</h3>
+                <div class="result-text" id="modelAnswerText"></div>
+                <p class="small-note">
+                    This is the reference answer generated for this question.
+                    Technically correct alternative explanations should also
+                    be considered during evaluation.
+                </p>
+            </div>
+
+            <div class="result-panel">
+                <h3>Concepts to Review</h3>
+                <div class="result-text" id="missingConcepts">Not provided by evaluator.</div>
+            </div>
+        </section>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <a class="brand" href="/" aria-label="Intervexa home">
+            <span class="brand-mark">✦</span>
+            <span class="brand-name">Inter<span>vexa</span></span>
+        </a>
+        <span class="footer-copy">AI-powered interview preparation</span>
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+        </nav>
+    </div>
+</footer>
+
+<script>
+"use strict";
+
+const sessionId = {{ interview.id | tojson }};
+const totalQuestions = Number({{ total_questions | default(10) | tojson }});
+
+let questionNumber = 1;
+let completedQuestions = 0;
+let currentQuestion = "";
+let expectedAnswer = "";
+
+let currentTopic = {{ interview.starting_topic | tojson }};
+let currentDifficulty = {{ interview.starting_difficulty | tojson }};
+let currentRole = {{ interview.role | tojson }};
+
+let previousQuestions = [];
+let recognition = null;
+let isRecording = false;
+let discardTranscript = false;
+let recognitionErrorOccurred = false;
+let questionRequestInProgress = false;
+let evaluationInProgress = false;
+let answerSubmitted = false;
+let interviewFinished = false;
+
+const $ = id => document.getElementById(id);
+
+const questionElement = $("question");
+const answerElement = $("answer");
+const submitButton = $("submitButton");
+const nextButton = $("nextButton");
+const resultElement = $("result");
+const loadingElement = $("loading");
+const errorElement = $("error");
+const speechLanguageElement = $("speechLanguage");
+const startRecordingButton = $("startRecordingButton");
+const stopRecordingButton = $("stopRecordingButton");
+const clearTranscriptButton = $("clearTranscriptButton");
+const voiceStatusElement = $("voiceStatus");
+const retryQuestionButton = $("retryQuestionButton");
+const progressBar = $("progressBar");
+const progressTrack = $("progressTrack");
+
+const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+}
+
+function updateProgress() {
+    const target = Number.isFinite(totalQuestions) && totalQuestions > 0
+        ? totalQuestions : 10;
+
+    const completed = clamp(completedQuestions, 0, target);
+    const percent = Math.round(completed / target * 100);
+
+    $("progressText").textContent = `${completed} of ${target} answers evaluated`;
+    $("progressPercent").textContent = `${percent}%`;
+    $("questionNumber").textContent = Math.min(questionNumber, target);
+    $("totalQuestionsText").textContent = target;
+
+    progressBar.style.width = `${percent}%`;
+    progressTrack.setAttribute("aria-valuenow", String(percent));
+}
+
+function setError(message) {
+    errorElement.textContent = message || "";
+}
+
+function setLoading(visible, message = "Please wait...") {
+    loadingElement.textContent = message;
+    loadingElement.style.display = visible ? "block" : "none";
+}
+
+function getSpeechLocale() {
+    return speechLanguageElement.value === "hinglish"
+        ? "en-IN" : speechLanguageElement.value;
+}
+
+function setQuestionControls(loaded) {
+    const canAnswer =
+        loaded &&
+        !answerSubmitted &&
+        !evaluationInProgress &&
+        !questionRequestInProgress &&
+        !isRecording &&
+        !interviewFinished;
+
+    answerElement.disabled =
+        !loaded || answerSubmitted || interviewFinished;
+
+    submitButton.style.display =
+        answerSubmitted || interviewFinished ? "none" : "inline-block";
+
+    submitButton.disabled = !canAnswer;
+
+    startRecordingButton.disabled =
+        !SpeechRecognition || !canAnswer;
+
+    clearTranscriptButton.disabled =
+        !loaded || answerSubmitted || evaluationInProgress ||
+        interviewFinished;
+
+    retryQuestionButton.style.display =
+        loaded ? "none" : "inline-block";
+}
+
+function appendTranscriptToAnswer(text) {
+    const transcript = text.trim();
+
+    if (!transcript || discardTranscript || answerSubmitted) return;
+
+    const existing = answerElement.value.trim();
+    answerElement.value = existing
+        ? `${existing} ${transcript}` : transcript;
+}
+
+function createRecognition() {
+    if (!SpeechRecognition) {
+        voiceStatusElement.textContent =
+            "Speech recognition is not supported in this browser. " +
+            "Try updated Chrome or Edge, or type your answer.";
+
+        startRecordingButton.disabled = true;
+        stopRecordingButton.disabled = true;
+        return;
+    }
+
+    recognition = new SpeechRecognition();
+    recognition.lang = getSpeechLocale();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+        recognitionErrorOccurred = false;
+        isRecording = true;
+        setQuestionControls(Boolean(currentQuestion));
+        stopRecordingButton.disabled = false;
+        speechLanguageElement.disabled = true;
+        voiceStatusElement.textContent = "Listening... Speak now.";
+    };
+
+    recognition.onresult = event => {
+        let interim = "";
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+            const result = event.results[i];
+            const transcript = result[0].transcript.trim();
+
+            if (result.isFinal) {
+                appendTranscriptToAnswer(transcript);
+            } else if (transcript) {
+                interim += `${transcript} `;
+            }
+        }
+
+        if (interim.trim()) {
+            voiceStatusElement.textContent = "Recognizing: " + interim.trim();
+        } else if (answerElement.value.trim()) {
+            voiceStatusElement.textContent =
+                "Recognized text added to your answer.";
+        }
+    };
+
+    recognition.onerror = event => {
+        recognitionErrorOccurred = true;
+
+        const errors = {
+            "not-allowed": "Microphone access denied. Allow microphone permission in browser settings.",
+            "service-not-allowed": "The browser speech recognition service is blocked.",
+            "no-speech": "No speech detected. Try speaking closer to the microphone.",
+            "audio-capture": "No microphone found. Check your microphone connection.",
+            "network": "Speech recognition network error. The service may be unavailable.",
+            "language-not-supported": "This language is not supported by the browser speech service.",
+            "aborted": "Recognition was cancelled."
+        };
+
+        voiceStatusElement.textContent =
+            errors[event.error] || `Speech recognition error: ${event.error}`;
+    };
+
+    recognition.onend = () => {
+        isRecording = false;
+        speechLanguageElement.disabled = false;
+        stopRecordingButton.disabled = true;
+
+        if (discardTranscript) {
+            discardTranscript = false;
+            voiceStatusElement.textContent = "Recording cancelled.";
+        } else if (recognitionErrorOccurred) {
+            // Keep the specific error shown by onerror.
+        } else {
+            voiceStatusElement.textContent = answerElement.value.trim()
+                ? "Recording finished. Review your answer before submitting."
+                : "No speech was recognized. Try again or type your answer.";
+        }
+
+        setQuestionControls(Boolean(currentQuestion));
+    };
+}
+
+function startRecording() {
+    if (
+        !SpeechRecognition || isRecording ||
+        evaluationInProgress || answerSubmitted ||
+        interviewFinished || questionRequestInProgress ||
+        !currentQuestion
+    ) return;
+
+    if (!recognition) createRecognition();
+    if (!recognition) return;
+
+    discardTranscript = false;
+    recognitionErrorOccurred = false;
+    recognition.lang = getSpeechLocale();
+
+    voiceStatusElement.textContent = "Starting microphone...";
+
+    try {
+        recognition.start();
+    } catch (error) {
+        console.error("Speech recognition start error:", error);
+        voiceStatusElement.textContent =
+            "Could not start recording. Stop any active recording and try again.";
+    }
+}
+
+function stopRecording(cancel = false) {
+    if (!recognition || !isRecording) return;
+
+    discardTranscript = cancel;
+    voiceStatusElement.textContent = cancel
+        ? "Cancelling recording..." : "Finishing speech recognition...";
+
+    try {
+        if (cancel && recognition.abort) recognition.abort();
+        else recognition.stop();
+    } catch (error) {
+        console.error("Speech recognition stop error:", error);
+        isRecording = false;
+        setQuestionControls(Boolean(currentQuestion));
+    }
+}
+
+startRecordingButton.addEventListener("click", startRecording);
+stopRecordingButton.addEventListener("click", () => stopRecording(false));
+
+speechLanguageElement.addEventListener("change", () => {
+    voiceStatusElement.textContent =
+        "Language selected. Click Start Recording when ready.";
+});
+
+clearTranscriptButton.addEventListener("click", () => {
+    if (isRecording) stopRecording(true);
+    answerElement.value = "";
+    voiceStatusElement.textContent = "Answer cleared.";
+});
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = 90000) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+    try {
+        return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
+async function readJsonResponse(response) {
+    let data;
+
+    try {
+        data = await response.json();
+    } catch {
+        throw new Error(
+            `The server returned an invalid response (HTTP ${response.status}).`
+        );
+    }
+
+    if (!response.ok) {
+        throw new Error(data.error || `Request failed with HTTP ${response.status}.`);
+    }
+
+    return data;
+}
+
+function formatMetric(value, metricName = "") {
+    if (value === null || value === undefined || value === "") return "N/A";
+
+    const number = Number(value);
+    if (!Number.isFinite(number)) return String(value);
+
+    if (metricName === "similarity" && number >= 0 && number <= 1) {
+        return `${(number * 100).toFixed(1)}%`;
+    }
+
+    return `${number.toFixed(1)}%`;
+}
+
+function formatScore(value) {
+    if (value === null || value === undefined || value === "") return "N/A";
+
+    const number = Number(value);
+    return Number.isFinite(number) ? `${number.toFixed(1)}/100` : String(value);
+}
+
+function showEvaluation(data, candidateAnswer) {
+    $("score").textContent = formatScore(data.score);
+    $("verdict").textContent = data.verdict || "Not available";
+    $("similarity").textContent = formatMetric(data.similarity, "similarity");
+    $("conceptCoverage").textContent = formatMetric(data.concept_coverage);
+    $("completeness").textContent = formatMetric(data.completeness);
+    $("relevance").textContent = formatMetric(data.relevance);
+    $("feedback").textContent = data.feedback || "The server did not return feedback.";
+
+    $("submittedAnswerText").textContent = candidateAnswer;
+
+    $("modelAnswerText").textContent =
+        data.expected_answer ||
+        data.reference_answer ||
+        expectedAnswer ||
+        "No model answer was returned by the server.";
+
+    const missing = data.missing_concepts;
+
+    $("missingConcepts").textContent = Array.isArray(missing)
+        ? (missing.length ? missing.join(", ") : "No missing concepts detected.")
+        : "The evaluator did not return a separate missing-concepts list.";
+
+    resultElement.style.display = "block";
+}
+
+async function loadQuestion() {
+    if (
+        questionRequestInProgress ||
+        evaluationInProgress ||
+        answerSubmitted ||
+        interviewFinished
+    ) return;
+
+    if (questionNumber > totalQuestions) {
+        window.location.href = `/interview/${sessionId}/result`;
+        return;
+    }
+
+    questionRequestInProgress = true;
+    setError("");
+    setLoading(true, "Generating your interview question...");
+
+    questionElement.textContent = "Generating interview question...";
+    retryQuestionButton.style.display = "none";
+    resultElement.style.display = "none";
+    nextButton.style.display = "none";
+
+    setQuestionControls(false);
+
+    if (isRecording) stopRecording(true);
+
+    currentQuestion = "";
+    expectedAnswer = "";
+
+    try {
+        const response = await fetchWithTimeout(
+            `/api/interview/${sessionId}/question`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    role: currentRole,
+                    topic: currentTopic,
+                    difficulty: currentDifficulty,
+                    previous_questions: previousQuestions
+                })
+            },
+            90000
+        );
+
+        const data = await readJsonResponse(response);
+
+        if (!data.success || !data.question) {
+            throw new Error(data.error || "Question generation failed.");
+        }
+
+        currentQuestion = data.question;
+        expectedAnswer = data.expected_answer || data.reference_answer || "";
+
+        currentTopic = data.topic || currentTopic;
+        currentDifficulty = data.difficulty || currentDifficulty;
+
+        if (!previousQuestions.includes(currentQuestion)) {
+            previousQuestions.push(currentQuestion);
+        }
+
+        questionElement.textContent = currentQuestion;
+        $("topic").textContent = currentTopic;
+        $("difficulty").textContent = currentDifficulty;
+        $("role").textContent = currentRole;
+
+        answerElement.value = "";
+        answerSubmitted = false;
+
+        voiceStatusElement.textContent =
+            "Type your answer or select a language and start recording.";
+
+        updateProgress();
+
+    } catch (error) {
+        console.error("Question loading error:", error);
+
+        questionElement.textContent = "Unable to load the interview question.";
+
+        setError(
+            error.name === "AbortError"
+                ? "Question generation timed out. Check the Flask terminal and retry."
+                : error.message
+        );
+
+    } finally {
+        questionRequestInProgress = false;
+        setLoading(false);
+        setQuestionControls(Boolean(currentQuestion));
+
+        if (!currentQuestion) {
+            retryQuestionButton.style.display = "inline-block";
+        }
+    }
+}
+
+retryQuestionButton.addEventListener("click", loadQuestion);
+
+async function submitAnswer() {
+    if (isRecording) {
+        setError("Stop recording and wait for recognition to finish before submitting.");
+        return;
+    }
+
+    if (
+        evaluationInProgress ||
+        answerSubmitted ||
+        interviewFinished ||
+        questionRequestInProgress
+    ) return;
+
+    if (!currentQuestion) {
+        setError("Load an interview question first.");
+        return;
+    }
+
+    const candidateAnswer = answerElement.value.trim();
+
+    if (!candidateAnswer) {
+        setError("Please type an answer or record one using the microphone.");
+        answerElement.focus();
+        return;
+    }
+
+    evaluationInProgress = true;
+    setQuestionControls(true);
+    setLoading(true, "AI is evaluating your answer...");
+    setError("");
+
+    try {
+        const response = await fetchWithTimeout(
+            `/api/interview/${sessionId}/answer`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    question: currentQuestion,
+                    expected_answer: expectedAnswer,
+                    candidate_answer: candidateAnswer,
+                    topic: currentTopic,
+                    difficulty: currentDifficulty
+                })
+            },
+            90000
+        );
+
+        const data = await readJsonResponse(response);
+
+        if (!data.success) {
+            throw new Error(data.error || "Answer evaluation failed.");
+        }
+
+        answerSubmitted = true;
+        showEvaluation(data, candidateAnswer);
+
+        if (
+            data.completed_questions !== null &&
+            data.completed_questions !== undefined &&
+            Number.isFinite(Number(data.completed_questions))
+        ) {
+            completedQuestions = clamp(
+                Number(data.completed_questions), 0, totalQuestions
+            );
+        } else {
+            completedQuestions = Math.min(
+                completedQuestions + 1, totalQuestions
+            );
+        }
+
+        updateProgress();
+
+        if (completedQuestions >= totalQuestions) {
+            nextButton.textContent = "View Final Result →";
+        } else {
+            nextButton.textContent = "Next Question →";
+        }
+
+        nextButton.style.display = "inline-block";
+
+    } catch (error) {
+        console.error("Answer evaluation error:", error);
+
+        setError(
+            error.name === "AbortError"
+                ? "Evaluation timed out. Check the server and interview history before retrying, because the server may still be processing your answer."
+                : error.message
+        );
+
+    } finally {
+        evaluationInProgress = false;
+        setLoading(false);
+        setQuestionControls(Boolean(currentQuestion));
+    }
+}
+
+submitButton.addEventListener("click", submitAnswer);
+
+nextButton.addEventListener("click", async () => {
+    if (
+        evaluationInProgress ||
+        questionRequestInProgress ||
+        !answerSubmitted ||
+        interviewFinished
+    ) return;
+
+    if (completedQuestions >= totalQuestions) {
+        interviewFinished = true;
+        nextButton.disabled = true;
+        nextButton.textContent = "Opening final result...";
+        window.location.href = `/interview/${sessionId}/result`;
+        return;
+    }
+
+    questionNumber = completedQuestions + 1;
+    answerSubmitted = false;
+    nextButton.style.display = "none";
+    nextButton.disabled = false;
+
+    await loadQuestion();
+});
+
+$("totalQuestionsText").textContent = totalQuestions;
+updateProgress();
+createRecognition();
+loadQuestion();
+</script>
+</body>
+</html>
